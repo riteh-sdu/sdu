@@ -3,7 +3,7 @@
 //
 
 #include "DSP2833x_Device.h"	// Headeri
-#include "test_1.h"
+#include "SDU_main_init.h"
 
 void delay_loop(long);	// Delay funkcija
 
