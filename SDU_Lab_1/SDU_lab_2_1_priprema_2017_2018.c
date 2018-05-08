@@ -9,16 +9,11 @@ void delay_loop(long);	// Delay funkcija
 
 void main(void)
 {
-	// Omoguæavanje Watchdog timer-a.
-  	EALLOW;
-	SysCtrlRegs.WDCR = 0x00AF;
-	EDIS;
+	// Omogucavanje Watchdog timer-a.
+	WATCHDOG_TIMER_SETUP
 
-	// Podešavanje takta dsp-a.
-	EALLOW;
-	SysCtrlRegs.PLLCR.bit.DIV = 10; //x10
-	SysCtrlRegs.PLLSTS.bit.DIVSEL = 2; ///2
-	EDIS;
+	// Podesavanje takta dsp-a.
+	DSP_CLOCK_SETUP
 
 	// Deklariranje pinova kao izlazi. (Testni program.)
 	EALLOW;
@@ -32,9 +27,9 @@ void main(void)
 
 	    while (1)
 	    {
-	    	RESET_WATCHDOG_TIMER;
+	    	WATCHDOG_TIMER_RESET;
 
-	    	// Naizmjenièno Blinkanje prva dva pina. (Testni program.)
+	    	// Naizmjenicno Blinkanje prva dva pina. (Testni program.)
 			delay_loop(1000000);
 			GpioDataRegs.GPASET.bit.GPIO9 = 1;
 			GpioDataRegs.GPACLEAR.bit.GPIO11 = 1;
@@ -52,7 +47,7 @@ void delay_loop(long end)
 	for (i=0; i<end;i++)
 	{
 		asm(" NOP");
-		RESET_WATCHDOG_TIMER;
+		WATCHDOG_TIMER_RESET;
 	}
 }
 
