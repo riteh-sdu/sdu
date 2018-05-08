@@ -10,10 +10,10 @@ void delay_loop(long);	// Delay funkcija
 void main(void)
 {
 	// Podesavanje takta dsp-a.
-	DSP_CLOCK_SETUP
+	DSP_CLOCK_SETUP;
 
 	// Omogucavanje Watchdog timer-a.
-	WATCHDOG_TIMER_SETUP
+	WATCHDOG_TIMER_SETUP;
 
 	// Deklariranje pinova kao izlazi. (Testni program.)
 	EALLOW;
@@ -50,6 +50,3 @@ void delay_loop(long end)
 		asm(" NOP");
 	}
 }
-
-
-

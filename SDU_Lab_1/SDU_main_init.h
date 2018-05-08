@@ -12,4 +12,3 @@
 // Makro za resetiranje Watchdog timer-a.
 #define WATCHDOG_TIMER_RESET {EALLOW; SysCtrlRegs.WDKEY = 0x55; SysCtrlRegs.WDKEY = 0xAA; EDIS;}
 #define WATCHDOG_TIMER_RESET_PH {asm(" NOP");}
-
