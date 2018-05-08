@@ -2,18 +2,16 @@
 **** Build of configuration Debug for project SDU_Lab_1 ****
 
 "C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../SDU_lab_2_1_priprema_2017_2018.c'
+'Invoking: C2000 Compiler'
+"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --include_path="C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include" --include_path="C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include" -g --display_error_number --diag_warning=225 --diag_wrap=off --preproc_with_compile --preproc_dependency="SDU_lab_2_1_priprema_2017_2018.d"  "../SDU_lab_2_1_priprema_2017_2018.c"
+'Finished building: ../SDU_lab_2_1_priprema_2017_2018.c'
+' '
 'Building target: SDU_Lab_1.out'
 'Invoking: C2000 Linker'
 "C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --display_error_number --diag_warning=225 --diag_wrap=off -z -m"SDU_Lab_1.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="SDU_Lab_1_linkInfo.xml" --rom_model -o "SDU_Lab_1.out" "./DSP2833x_CodeStartBranch.obj" "./DSP2833x_GlobalVariableDefs.obj" "./SDU_lab_2_1_priprema_2017_2018.obj" "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/cmd/28335_RAM_lnk.cmd" "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd"  -llibc.a 
 <Linking>
 'Finished building target: SDU_Lab_1.out'
 ' '
-
-**** Build Finished ****
-
-**** Build of configuration Debug for project SDU_Lab_1 ****
-
-"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
-gmake: Nothing to be done for 'all'.
 
 **** Build Finished ****
