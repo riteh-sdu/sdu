@@ -2,10 +2,12 @@
 // 	SDU_lab_1_1
 //
 
-#include "DSP2833x_Device.h"	// Headeri
+// Headeri
+#include "DSP2833x_Device.h"
 #include "SDU_main_init.h"
 
-void delay_loop(long);	// Delay funkcija
+// Delay funkcija
+void delay_loop(long);
 
 void main(void)
 {
@@ -29,7 +31,7 @@ void main(void)
 	    {
 	    	WATCHDOG_TIMER_RESET;
 
-	    	// Naizmjenicno Blinkanje prva dva pina. (Testni program.)
+	    	// Naizmjenicno treperenje svjetlecih dioda spojenih na prva dva pina. (Testni program.)
 			delay_loop(1000000);
 			GpioDataRegs.GPASET.bit.GPIO9 = 1;
 			GpioDataRegs.GPACLEAR.bit.GPIO11 = 1;
