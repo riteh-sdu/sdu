@@ -21,7 +21,7 @@
 
 #include "DSP2833x_Device.h"
 #include "IQmathLib.h"
-#define GLOBAL_Q 18
+#define GLOBAL_Q18
 
 // external function prototypes
 extern void InitSysCtrl(void);
@@ -42,9 +42,21 @@ interrupt void adc_isr(void);
 unsigned int Voltage_VR1;
 unsigned int Voltage_VR2;
 
-// za nas dio zadatka
-int i=0,N=4;
+// Za nas dio zadatka strujena i naponska zastita
+int i = 0;
+_iq TH_HV = 2000;
+_iq TH_LV = 1000;
+_iq TH_mzI = 80;
+_iq TH_vzI = 50;
+
+_iq MV_napon = 0;
+_iq MV_struja = 0;
 _iq Buffer[4] = {_IQ(0),_IQ(0),_IQ(0),_IQ(0)};
+_iq Buffer_I[4] = {_IQ(0),_IQ(0),_IQ(0),_IQ(0)};
+_iq16 N = _IQ(0.25);
+_iq16 zbroj = 0;							// stavljeno u IQ16 format kako nebi doslo do overflowa
+_iq16 zbroj_I = 0;
+
 
 
 void main(void)
@@ -206,13 +218,87 @@ interrupt void adc_isr(void)
 	AdcRegs.ADCST.bit.INT_SEQ1_CLR = 1;		// Clear interrupt flag ADC sequencer 1
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
-	Buffer[3] = Buffer[2];
-	Buffer[2] = Buffer[1];
-	Buffer[1] = _IQ(Voltage_VR1);
+	// deklariranje varijabli
+	int i_VN = 0,i_NN = 0; 					// brojaè za visoki napon i brojac za niski napon
+	int vrijeme_VN = 10, vrijeme_NN = 10;	// vrijeme za visoki napon i niski napon treba dobiti od ADC jedinice ??????
+
+	int i_mz = 0, i_vz = 0;					// brojaci za struje (mali i veliki zateg)
+	int T_mz = 20, T_vz = 1000;				// vrijeme za izvrsavanje strujnih zastita sa malim i velikim zategom
 
 
+	while(1){
+		// spremanje ulaznih podataka od ADC pretvorbe u buffer
+
+		// Buffer za napon
+		Buffer[3] = Buffer[2];
+		Buffer[2] = Buffer[1];
+		Buffer[1] = Buffer[0];
+		//Buffer[0] = Voltage_VR1;
+		Buffer[0] =  _IQ(Voltage_VR1);
+
+		// buffer za struju
+		Buffer_I[3] = Buffer_I[2];
+		Buffer_I[2] = Buffer_I[1];
+		Buffer_I[1] = Buffer_I[0];
+		Buffer_I[0] =  _IQ(Voltage_VR2);
 
 
+		// Radimo Moving average filter
 
+		// za napon
+		zbroj = _IQtoIQ16(Buffer[3]) + _IQtoIQ16(Buffer[2]) + _IQtoIQ16(Buffer[1]) + _IQtoIQ16(Buffer[0]);
+		MV_napon = _IQ16toIQ(_IQmpy(zbroj, N));
+
+		// za struju
+		zbroj_I = _IQtoIQ16(Buffer_I[3]) + _IQtoIQ16(Buffer_I[2]) + _IQtoIQ16(Buffer_I[1]) + _IQtoIQ16(Buffer_I[0]);
+		MV_struja = _IQ16toIQ(_IQmpy(zbroj_I, N));
+
+
+		// Prenaponska zastita, moramo odrediti graniènu vrijednost (TH)????? dobiti od ADC jedinice ??????
+		if (MV_napon > TH_HV) {
+			i_VN += 1;
+		}
+		if ((MV_napon < TH_HV) && (i_VN > 0)) {
+			i_VN -=1;
+		}
+		if (i_VN >= vrijeme_VN) {
+			// signaliziraj da je napon veæi od gornje granice
+			break;
+		}
+		// Podnaponska zastita, moramo odrediti graniènu vrijednost (TH)????? dobiti od ADC jedinice ??????
+		if (MV_napon < TH_LV) {
+			i_NN += 1;
+		}
+		if ((MV_napon > TH_LV) && (i_NN > 0)) {
+			i_NN -=1;
+		}
+		if (i_VN >= vrijeme_VN) {
+			// signaliziraj da je napon manji od donje granice
+			break;
+		}
+
+		// Strujna zastita, mali zateg
+		if (MV_struja > TH_mzI){
+			i_mz += 1;
+		}
+		if ((MV_struja < TH_mzI) && (i_mz > 0)){
+			i_mz -= 1;
+		}
+		if (i_mz >= T_mz) {
+			// signaliziraj da je struja veæa od granice za mali zateg
+			break;
+		}
+		// Strujna zastita, veliki zateg
+		if (MV_struja > TH_vzI){
+			i_vz += 1;
+		}
+		if ((MV_struja < TH_vzI) && (i_vz > 0)){
+			i_vz -= 1;
+		}
+		if (i_vz >= T_vz) {
+			GpioDataRegs.GPASET.bit.GPIO12 = 1;
+			break;
+		}
+	}
 }
 
