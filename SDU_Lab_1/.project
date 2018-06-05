@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>SDU_Lab_1</name>
+	<name>SDU_lab_1</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -49,11 +49,6 @@
 			<name>DSP2833x_Headers_nonBIOS.cmd</name>
 			<type>1</type>
 			<locationURI>controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd</locationURI>
-		</link>
-		<link>
-			<name>F28335.cmd</name>
-			<type>1</type>
-			<locationURI>controlSUITE/device_support/f2833x/v141/DSP2833x_common/cmd/F28335.cmd</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
