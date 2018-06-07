@@ -43,21 +43,37 @@ unsigned int Voltage_VR1;
 unsigned int Voltage_VR2;
 
 // Za nas dio zadatka strujena i naponska zastita
-int i = 0;
-_iq TH_HV = 2000;
-_iq TH_LV = 1000;
-_iq TH_mzI = 80;
-_iq TH_vzI = 50;
+// deklariranje varijabli
 
-_iq MV_napon = 0;
-_iq MV_struja = 0;
-_iq Buffer[4] = {_IQ(0),_IQ(0),_IQ(0),_IQ(0)};
-_iq Buffer_I[4] = {_IQ(0),_IQ(0),_IQ(0),_IQ(0)};
-_iq16 N = _IQ(0.25);
-_iq16 zbroj = 0;							// stavljeno u IQ16 format kako nebi doslo do overflowa
-_iq16 zbroj_I = 0;
+_iq TH_HV = 2000;										// granicna vrijednost za visoki napon
+_iq TH_LV = 1000;										// granicna vrijednost za niski napon
+_iq TH_mzI = 80;										// granicna vrijednost za mali zateg struje
+_iq TH_vzI = 50;										// granicna vrijednost za veliki zateg struje
 
+_iq MV_napon = 0;										// vrijednost napona iz moving average filtra
+_iq MV_struja_U = 0;									// vrijednost struje faze U iz moving average filtra
+_iq MV_struja_V = 0;									// vrijednost struje faze V iz moving average filtra
+_iq MV_struja_W = 0;									// vrijednost struje faze W iz moving average filtra
 
+_iq Buffer[4] = {_IQ(0),_IQ(0),_IQ(0),_IQ(0)}; 			// buffer za napon
+_iq Buffer_I_U[4] = {_IQ(0),_IQ(0),_IQ(0),_IQ(0)};		// buffer za stuju faze U
+_iq Buffer_I_V[4] = {_IQ(0),_IQ(0),_IQ(0),_IQ(0)};		// buffer za stuju faze V
+_iq Buffer_I_W[4] = {_IQ(0),_IQ(0),_IQ(0),_IQ(0)};		// buffer za stuju faze W
+
+// stavljeno u IQ16 format kako nebi doslo do overflowa
+
+_iq16 N = _IQ(0.25);									// djelitelj za moving average filtar N = 1/4
+_iq16 zbroj = 0;										// brojnik za MV filtar	napona
+_iq16 zbroj_I_U = 0;									// brojnik za MV filtar struje faze U
+_iq16 zbroj_I_V = 0;									// brojnik za MV filtar struje faze V
+_iq16 zbroj_I_W = 0;									// brojnik za MV filtar struje faze W
+
+int i_VN = 0, i_NN = 0; 								// brojaèi za napone (visoki i niski)
+int i_mz = 0, i_vz = 0;									// brojaci za struje (mali i veliki zateg)
+
+int T_mz = 20, T_vz = 1000;								// vrijeme za strju sa malim i velikim zategom
+// treba dobiti od ADC jedinice ??????
+int vrijeme_VN = 100, vrijeme_NN = 10;					// vrijeme za visoki napon i niski napon
 
 void main(void)
  {
@@ -218,30 +234,39 @@ interrupt void adc_isr(void)
 	AdcRegs.ADCST.bit.INT_SEQ1_CLR = 1;		// Clear interrupt flag ADC sequencer 1
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
-	// deklariranje varijabli
-	int i_VN = 0,i_NN = 0; 					// brojaè za visoki napon i brojac za niski napon
-	int vrijeme_VN = 10, vrijeme_NN = 10;	// vrijeme za visoki napon i niski napon treba dobiti od ADC jedinice ??????
-
-	int i_mz = 0, i_vz = 0;					// brojaci za struje (mali i veliki zateg)
-	int T_mz = 20, T_vz = 1000;				// vrijeme za izvrsavanje strujnih zastita sa malim i velikim zategom
-
 
 	while(1){
-		// spremanje ulaznih podataka od ADC pretvorbe u buffer
+
+		EALLOW;
+		GpioCtrlRegs.GPBMUX1.bit.GPIO34 = 0b00;
+		GpioCtrlRegs.GPBDIR.bit.GPIO34 = 1;
+		EDIS;
+
+		GpioDataRegs.GPBCLEAR.bit.GPIO34 = 1;
 
 		// Buffer za napon
 		Buffer[3] = Buffer[2];
 		Buffer[2] = Buffer[1];
 		Buffer[1] = Buffer[0];
-		//Buffer[0] = Voltage_VR1;
 		Buffer[0] =  _IQ(Voltage_VR1);
 
-		// buffer za struju
-		Buffer_I[3] = Buffer_I[2];
-		Buffer_I[2] = Buffer_I[1];
-		Buffer_I[1] = Buffer_I[0];
-		Buffer_I[0] =  _IQ(Voltage_VR2);
+		// buffer za struju faze U
+		Buffer_I_U[3] = Buffer_I_U[2];
+		Buffer_I_U[2] = Buffer_I_U[1];
+		Buffer_I_U[1] = Buffer_I_U[0];
+		Buffer_I_U[0] =  _IQ(Voltage_VR2);		// treba dobiti od ADC jedinice sa kojeg registra ocitavamo stuju faze U
 
+		// buffer za struju faze V
+		Buffer_I_V[3] = Buffer_I_V[2];
+		Buffer_I_V[2] = Buffer_I_V[1];
+		Buffer_I_V[1] = Buffer_I_V[0];
+		Buffer_I_V[0] =  _IQ(Voltage_VR2);      // treba dobiti od ADC jedinice sa kojeg registra ocitavamo stuju faze V
+
+		// buffer za struju faze W
+		Buffer_I_W[3] = Buffer_I_W[2];
+		Buffer_I_W[2] = Buffer_I_W[1];
+		Buffer_I_W[1] = Buffer_I_W[0];
+		Buffer_I_W[0] =  _IQ(Voltage_VR2);      // treba dobiti od ADC jedinice sa kojeg registra ocitavamo stuju faze W
 
 		// Radimo Moving average filter
 
@@ -249,9 +274,17 @@ interrupt void adc_isr(void)
 		zbroj = _IQtoIQ16(Buffer[3]) + _IQtoIQ16(Buffer[2]) + _IQtoIQ16(Buffer[1]) + _IQtoIQ16(Buffer[0]);
 		MV_napon = _IQ16toIQ(_IQmpy(zbroj, N));
 
-		// za struju
-		zbroj_I = _IQtoIQ16(Buffer_I[3]) + _IQtoIQ16(Buffer_I[2]) + _IQtoIQ16(Buffer_I[1]) + _IQtoIQ16(Buffer_I[0]);
-		MV_struja = _IQ16toIQ(_IQmpy(zbroj_I, N));
+		// za struju faze U
+		zbroj_I_U = _IQtoIQ16(Buffer_I_U[3]) + _IQtoIQ16(Buffer_I_U[2]) + _IQtoIQ16(Buffer_I_U[1]) + _IQtoIQ16(Buffer_I_U[0]);
+		MV_struja_U = _IQ16toIQ(_IQmpy(zbroj_I_U, N));
+
+		// za struju faze V
+		zbroj_I_V = _IQtoIQ16(Buffer_I_V[3]) + _IQtoIQ16(Buffer_I_V[2]) + _IQtoIQ16(Buffer_I_V[1]) + _IQtoIQ16(Buffer_I_V[0]);
+		MV_struja_V = _IQ16toIQ(_IQmpy(zbroj_I_V, N));
+
+		// za struju faze W
+		zbroj_I_W = _IQtoIQ16(Buffer_I_W[3]) + _IQtoIQ16(Buffer_I_W[2]) + _IQtoIQ16(Buffer_I_W[1]) + _IQtoIQ16(Buffer_I_W[0]);
+		MV_struja_W = _IQ16toIQ(_IQmpy(zbroj_I_W, N));
 
 
 		// Prenaponska zastita, moramo odrediti graniènu vrijednost (TH)????? dobiti od ADC jedinice ??????
@@ -262,7 +295,7 @@ interrupt void adc_isr(void)
 			i_VN -=1;
 		}
 		if (i_VN >= vrijeme_VN) {
-			// signaliziraj da je napon veæi od gornje granice
+			GpioDataRegs.GPBSET.bit.GPIO34 = 1;
 			break;
 		}
 		// Podnaponska zastita, moramo odrediti graniènu vrijednost (TH)????? dobiti od ADC jedinice ??????
@@ -277,11 +310,12 @@ interrupt void adc_isr(void)
 			break;
 		}
 
+		// za struju faze U
 		// Strujna zastita, mali zateg
-		if (MV_struja > TH_mzI){
+		if (MV_struja_U > TH_mzI){
 			i_mz += 1;
 		}
-		if ((MV_struja < TH_mzI) && (i_mz > 0)){
+		if ((MV_struja_U < TH_mzI) && (i_mz > 0)){
 			i_mz -= 1;
 		}
 		if (i_mz >= T_mz) {
@@ -289,14 +323,62 @@ interrupt void adc_isr(void)
 			break;
 		}
 		// Strujna zastita, veliki zateg
-		if (MV_struja > TH_vzI){
+		if (MV_struja_U > TH_vzI){
 			i_vz += 1;
 		}
-		if ((MV_struja < TH_vzI) && (i_vz > 0)){
+		if ((MV_struja_U < TH_vzI) && (i_vz > 0)){
 			i_vz -= 1;
 		}
 		if (i_vz >= T_vz) {
-			GpioDataRegs.GPASET.bit.GPIO12 = 1;
+			// signaliziraj da je struja veæa od granice za veliki zateg
+			break;
+		}
+
+		// za struju faze V
+		// Strujna zastita, mali zateg
+		if (MV_struja_V > TH_mzI){
+			i_mz += 1;
+		}
+		if ((MV_struja_V < TH_mzI) && (i_mz > 0)){
+			i_mz -= 1;
+		}
+		if (i_mz >= T_mz) {
+			// signaliziraj da je struja veæa od granice za mali zateg
+			break;
+		}
+		// Strujna zastita, veliki zateg
+		if (MV_struja_V > TH_vzI){
+			i_vz += 1;
+		}
+		if ((MV_struja_V < TH_vzI) && (i_vz > 0)){
+			i_vz -= 1;
+		}
+		if (i_vz >= T_vz) {
+			// signaliziraj da je struja veæa od granice za veliki zateg
+			break;
+		}
+
+		// za struju faze W
+		// Strujna zastita, mali zateg
+		if (MV_struja_W > TH_mzI){
+			i_mz += 1;
+		}
+		if ((MV_struja_W < TH_mzI) && (i_mz > 0)){
+			i_mz -= 1;
+		}
+		if (i_mz >= T_mz) {
+			// signaliziraj da je struja veæa od granice za mali zateg
+			break;
+		}
+		// Strujna zastita, veliki zateg
+		if (MV_struja_W > TH_vzI){
+			i_vz += 1;
+		}
+		if ((MV_struja_W < TH_vzI) && (i_vz > 0)){
+			i_vz -= 1;
+		}
+		if (i_vz >= T_vz) {
+			// signaliziraj da je struja veæa od granice za veliki zateg
 			break;
 		}
 	}
