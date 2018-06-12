@@ -1,5 +1,11 @@
 #include "DSP2833x_Device.h"
 
+#ifndef   GLOBAL_Q
+#define   GLOBAL_Q       18
+#endif
+
+
+#include "IQmathLib.h"
 
 void delay_loop(long);
 void SCIA_Slanje(int b);
@@ -8,11 +14,19 @@ void SCIA_Poruka(char *msg);
 
 char msg[30]={'n','=','e','=','d','=','q','\n','\0'};
 
-int16 a;
+int16 a,b,c,d;
+
+//char buffer[4]={'3','0','0','0'};
+_iq buffer[4];
+_iq w;
+
+
 
 int state;
 
 void main(void) {
+
+
 
 		EALLOW;
 		SysCtrlRegs.WDCR=0x0068;
@@ -56,6 +70,25 @@ void main(void) {
 
 		EDIS;
 
+		a = '1';
+		b = '2';
+		c = '3';
+		d = '4';
+
+
+	 	buffer[0]=_IQ(a) - _IQ(48);
+	    buffer[1]=_IQ(b) - _IQ(48);
+	    buffer[2]=_IQ(c) - _IQ(48);
+	    buffer[3]=_IQ(d) - _IQ(48);
+
+
+	   buffer[0]=_IQmpy(buffer[0],_IQ(1000));
+	   buffer[1]=_IQmpy(buffer[1],_IQ(100));
+	   buffer[2]=_IQmpy(buffer[2],_IQ(10));
+	   buffer[3]=_IQmpy(buffer[3],_IQ(1));
+
+	   w = buffer[3] + buffer[2] + buffer[1] + buffer[0];
+
      while (1){
 
     	 	//SciaRegs.SCITXBUF='H';
@@ -63,10 +96,28 @@ void main(void) {
     	 	//SciaRegs.SCITXBUF='A';
     	 	//delay_loop(10000000);
 
-    	 	if(SciaRegs.SCIFFRX.bit.RXFFST>0){  //primanje poruke i spremanje u varijablu a
-    	 		a=SciaRegs.SCIRXBUF.bit.RXDT;
+
+    	 	if(SciaRegs.SCIFFRX.bit.RXFFST>3){  //primanje poruke i spremanje u varijablu a
+
+    	 		int z = 0;
+    	 		while (SciaRegs.SCIFFRX.bit.RXFFST!=0){
+
+    	 			a=SciaRegs.SCIRXBUF.bit.RXDT;
+    	 			buffer[z] = _IQ(a) - _IQ(48);
+    	 			z++;
+    	 		}
+
+
+    	 	buffer[0]=_IQmpy(buffer[0],_IQ(1000));
+    	 	buffer[1]=_IQmpy(buffer[1],_IQ(100));
+    	 	buffer[2]=_IQmpy(buffer[2],_IQ(10));
+    	 	buffer[3]=_IQmpy(buffer[3],_IQ(1));
+
+    	 	w = buffer[3] + buffer[2] + buffer[1] + buffer[0];
+
+
     	 		//SciaRegs.SCITXBUF=a;
-    	 		switch (a){
+    	 	/*	switch (a){
     	 		case '1':
     	 			state=1;
     	 			break;
@@ -79,7 +130,7 @@ void main(void) {
     	 		case '4':
     	 			state=4;
     	 			break;
-    	 		}
+    	 		}*/
     	 		}
 
     	 	SCIA_Poruka(msg);                  //slanje poruke

@@ -20,6 +20,8 @@ Komunikacija.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers
 Komunikacija.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_SysCtrl.h
 Komunikacija.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h
 Komunikacija.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h
+Komunikacija.obj: ../IQmathLib.h
+Komunikacija.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h
 
 ../Komunikacija.c: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Device.h: 
@@ -41,3 +43,5 @@ C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_SysCtrl.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h: 
+../IQmathLib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h: 

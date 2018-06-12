@@ -4,17 +4,28 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_15.12.4.LTS
+CG_TOOL_ROOT := C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./DSP2833x_ADC_cal.obj" \
+"./DSP2833x_Adc.obj" \
 "./DSP2833x_CodeStartBranch.obj" \
+"./DSP2833x_CpuTimers.obj" \
+"./DSP2833x_DefaultIsr.obj" \
 "./DSP2833x_GlobalVariableDefs.obj" \
+"./DSP2833x_PieCtrl.obj" \
+"./DSP2833x_PieVect.obj" \
+"./DSP2833x_SysCtrl.obj" \
+"./DSP2833x_usDelay.obj" \
+"./Display_ADC.obj" \
 "./Komunikacija.obj" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/cmd/28335_RAM_lnk.cmd" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd" \
+"../IQmath.lib" \
+"../IQmath_fpu32.lib" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -123,41 +134,41 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-Komunikacija.out \
+SDU_Lab_1.out \
 
 EXE_OUTPUTS__QUOTED += \
-"Komunikacija.out" \
+"SDU_Lab_1.out" \
 
 BIN_OUTPUTS += \
-Komunikacija.hex \
+SDU_Lab_1.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"Komunikacija.hex" \
+"SDU_Lab_1.hex" \
 
 
 # All Target
-all: Komunikacija.out
+all: SDU_Lab_1.out
 
 # Tool invocations
-Komunikacija.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+SDU_Lab_1.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_15.12.4.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --display_error_number --diag_wrap=off --diag_warning=225 -z -m"Komunikacija.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_15.12.4.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_15.12.4.LTS/include" --reread_libs --display_error_number --diag_wrap=off --xml_link_info="Komunikacija_linkInfo.xml" --rom_model -o "Komunikacija.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt -g --display_error_number --diag_wrap=off --diag_warning=225 -z -m"SDU_Lab_1.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --reread_libs --display_error_number --diag_wrap=off --xml_link_info="SDU_Lab_1_linkInfo.xml" --rom_model -o "SDU_Lab_1.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-Komunikacija.hex: $(EXE_OUTPUTS)
+SDU_Lab_1.hex: $(EXE_OUTPUTS)
 	@echo 'Invoking: C2000 Hex Utility'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_15.12.4.LTS/bin/hex2000"  -o "Komunikacija.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/hex2000"  -o "SDU_Lab_1.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "DSP2833x_GlobalVariableDefs.d" "Komunikacija.d" 
-	-$(RM) "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "Komunikacija.obj" 
-	-$(RM) "DSP2833x_CodeStartBranch.d" 
+	-$(RM) "DSP2833x_Adc.d" "DSP2833x_CpuTimers.d" "DSP2833x_DefaultIsr.d" "DSP2833x_GlobalVariableDefs.d" "DSP2833x_PieCtrl.d" "DSP2833x_PieVect.d" "DSP2833x_SysCtrl.d" "Display_ADC.d" "Komunikacija.d" 
+	-$(RM) "DSP2833x_ADC_cal.obj" "DSP2833x_Adc.obj" "DSP2833x_CodeStartBranch.obj" "DSP2833x_CpuTimers.obj" "DSP2833x_DefaultIsr.obj" "DSP2833x_GlobalVariableDefs.obj" "DSP2833x_PieCtrl.obj" "DSP2833x_PieVect.obj" "DSP2833x_SysCtrl.obj" "DSP2833x_usDelay.obj" "Display_ADC.obj" "Komunikacija.obj" 
+	-$(RM) "DSP2833x_ADC_cal.d" "DSP2833x_CodeStartBranch.d" "DSP2833x_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
