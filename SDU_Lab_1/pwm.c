@@ -5,15 +5,18 @@
  *      Author: L3PC07
  */
 #include "DSP2833x_Device.h"	// Headeri
+#include "DSP28x_Project.h"
 
-void delay_loop(long);	// Delay funkcija
 
 
+//void delay_loop(long);	// Delay funkcija
+
+int z;
 void main(void)
 {
 
 
-
+	InitSysCtrl();
 /// EALLOW
 /// SysCtrlRegs.WDCR = 0x0068;  //watchdog ukljucen
 /// EDIS
@@ -22,16 +25,20 @@ void main(void)
 	SysCtrlRegs.PLLSTS.bit.DIVSEL = 2;  // podjeljen s 2 =300/2 = 150MHz
 
 	EALLOW;
-	GpioCtrlRegs.GPAMUX1.bit.GPIO0 = 1;  //postavljanje pinova kao pwm (1A)
-	GpioCtrlRegs.GPAMUX1.bit.GPIO1 = 1;  //postavljanje pinova kao pwm (1B)
-	GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 1;	//postavljanje pinova kao pwm (2A)
-	GpioCtrlRegs.GPAMUX1.bit.GPIO3 = 1;	//postavljanje pinova kao pwm (2B)
-	GpioCtrlRegs.GPAMUX1.bit.GPIO4 = 1;	//postavljanje pinova kao pwm (3A)
-	GpioCtrlRegs.GPAMUX1.bit.GPIO5 = 1;	//postavljanje pinova kao pwm (3B)
-	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 1;
-	SysCtrlRegs.PCLKCR1.bit.EPWM1ENCLK = 1;	// ENCLK ePWM
-	SysCtrlRegs.PCLKCR1.bit.EPWM2ENCLK = 1; // ENCLK ePWM
-	SysCtrlRegs.PCLKCR1.bit.EPWM3ENCLK = 1; // ENCLK ePWM
+
+	GpioCtrlRegs.GPAMUX2.bit.GPIO17 = 0b11; // Trip Zone TZ6
+		GpioCtrlRegs.GPAPUD.bit.GPIO17 = 0;
+		GpioCtrlRegs.GPADIR.bit.GPIO17 = 0;		// TZ6 kao Input
+		GpioCtrlRegs.GPAMUX1.bit.GPIO0 = 1;  //postavljanje pinova kao pwm (1A)
+		GpioCtrlRegs.GPAMUX1.bit.GPIO1 = 1;  //postavljanje pinova kao pwm (1B)
+		GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 1;	//postavljanje pinova kao pwm (2A)
+		GpioCtrlRegs.GPAMUX1.bit.GPIO3 = 1;	//postavljanje pinova kao pwm (2B)
+		GpioCtrlRegs.GPAMUX1.bit.GPIO4 = 1;	//postavljanje pinova kao pwm (3A)
+		GpioCtrlRegs.GPAMUX1.bit.GPIO5 = 1;	//postavljanje pinova kao pwm (3B)
+		SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 1;
+		SysCtrlRegs.PCLKCR1.bit.EPWM1ENCLK = 1;	// ENCLK ePWM
+		SysCtrlRegs.PCLKCR1.bit.EPWM2ENCLK = 1; // ENCLK ePWM
+		SysCtrlRegs.PCLKCR1.bit.EPWM3ENCLK = 1; // ENCLK ePWM
 
 		EPwm1Regs.TBCTL.bit.CLKDIV =  0;	// CLKDIV = 1
 		EPwm1Regs.TBCTL.bit.HSPCLKDIV = 0;	// HSPCLKDIV = 1
@@ -43,7 +50,7 @@ void main(void)
 		EPwm1Regs.DBCTL.all=0x000B; //postavlanje registra za mrtvo vrijeme
 		EPwm1Regs.DBRED=600; // fclk*Risedelay
 		EPwm1Regs.DBFED=600; // Fclk*falldelay
-	
+
 		EPwm2Regs.TBCTL.bit.CLKDIV =  0;	// CLKDIV = 1
 		EPwm2Regs.TBCTL.bit.HSPCLKDIV = 0;	// HSPCLKDIV = 1
 		EPwm2Regs.TBCTL.bit.CTRMODE = 2;	// up - down mode
@@ -65,7 +72,9 @@ void main(void)
 		EPwm3Regs.DBCTL.all=0x000B; //postavlanje registra za mrtvo vrijeme
 		EPwm3Regs.DBRED=600; // fclk*Risedelay
 		EPwm3Regs.DBFED=600; // Fclk*falldelay
+		EDIS;
 
+		EALLOW;
 		EPwm1Regs.TZCTL.bit.TZA = 0b10;		// force ePWM1A to zero
 		EPwm1Regs.TZCTL.bit.TZB = 0b10;		// force ePWM1B to zero
 
@@ -78,6 +87,7 @@ void main(void)
 		EPwm1Regs.TZSEL.bit.OSHT6 = 1;	// select TZ6 as one shot over current source
 		EPwm2Regs.TZSEL.bit.OSHT6 = 1;	// select TZ6 as one shot over current source
 		EPwm3Regs.TZSEL.bit.OSHT6 = 1;	// select TZ6 as one shot over current source
+		EDIS;
 
 		EPwm1Regs.TBCTL.bit.SYNCOSEL = 1;	// generate a syncout if CTR = 0
 		EPwm1Regs.TBPHS.half.TBPHS = 0;
@@ -89,16 +99,29 @@ void main(void)
 		EPwm3Regs.TBCTL.bit.PHSEN = 1;		// enable phase shift for ePWM3
 		EPwm3Regs.TBCTL.bit.SYNCOSEL = 0;	// syncin = syncout
 		EPwm3Regs.TBPHS.half.TBPHS =0;
-	EDIS;
 
+		EPwm1Regs.ETSEL.all = 0;
+		EPwm1Regs.ETSEL.bit.INTEN = 0b0;  // interrupt enable for ePWM1
+		EPwm1Regs.ETSEL.bit.SOCAEN = 0b1;	// SOCA pocetak mjerenja struje
+		EPwm1Regs.ETSEL.bit.SOCASEL = 0b010;    // event trigger CTR=PRD
+		EPwm1Regs.ETPS.bit.SOCBPRD    = 0b1;   //SOC on first event
+
+		EPwm1Regs.ETSEL.bit.SOCBEN = 0b1;	// SOCB pocetak mjerenja napona
+		EPwm1Regs.ETSEL.bit.SOCBSEL = 0b010;    // event trigger CTR=PRD
+		EPwm1Regs.ETPS.bit.SOCBPRD    = 0b1; // SOC on first event
+
+
+
+
+		z = EPwm1Regs.TBPRD / 2;
 	    while (1)
 
 	    {
-
-	EALLOW;
+	    EPwm1Regs.CMPA.half.CMPA = z;
+	/*EALLOW;
 	  SysCtrlRegs.WDKEY = 0x55;
 	  SysCtrlRegs.WDKEY = 0xAA;
-	EDIS;
+	EDIS;*/
 
 	    }
 }

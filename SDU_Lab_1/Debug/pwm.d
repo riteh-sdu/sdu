@@ -20,6 +20,13 @@ pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/
 pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_SysCtrl.h
 pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h
 pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h
+pwm.obj: ../DSP28x_Project.h
+pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_Examples.h
+pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_GlobalPrototypes.h
+pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_EPwm_defines.h
+pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_Dma_defines.h
+pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_I2c_defines.h
+pwm.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_DefaultIsr.h
 
 ../pwm.c: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Device.h: 
@@ -41,3 +48,10 @@ C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_SysCtrl.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h: 
+../DSP28x_Project.h: 
+C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_Examples.h: 
+C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_GlobalPrototypes.h: 
+C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_EPwm_defines.h: 
+C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_Dma_defines.h: 
+C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_I2c_defines.h: 
+C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include/DSP2833x_DefaultIsr.h: 

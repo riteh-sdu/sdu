@@ -10,8 +10,11 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./DSP2833x_ADC_cal.obj" \
 "./DSP2833x_CodeStartBranch.obj" \
 "./DSP2833x_GlobalVariableDefs.obj" \
+"./DSP2833x_SysCtrl.obj" \
+"./DSP2833x_usDelay.obj" \
 "./pwm.obj" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/cmd/28335_RAM_lnk.cmd" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd" \
@@ -155,9 +158,9 @@ SDU_lab_1.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "DSP2833x_GlobalVariableDefs.d" "pwm.d" 
-	-$(RM) "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "pwm.obj" 
-	-$(RM) "DSP2833x_CodeStartBranch.d" 
+	-$(RM) "DSP2833x_GlobalVariableDefs.d" "DSP2833x_SysCtrl.d" "pwm.d" 
+	-$(RM) "DSP2833x_ADC_cal.obj" "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "DSP2833x_SysCtrl.obj" "DSP2833x_usDelay.obj" "pwm.obj" 
+	-$(RM) "DSP2833x_ADC_cal.d" "DSP2833x_CodeStartBranch.d" "DSP2833x_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
