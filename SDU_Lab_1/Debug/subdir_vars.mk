@@ -12,28 +12,28 @@ C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/source/DSP2833x_Co
 
 C_SRCS += \
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/source/DSP2833x_GlobalVariableDefs.c \
-../SDU_lab_2_1_priprema_2017_2018.c 
+../Komunikacija.c 
 
 OBJS += \
 ./DSP2833x_CodeStartBranch.obj \
 ./DSP2833x_GlobalVariableDefs.obj \
-./SDU_lab_2_1_priprema_2017_2018.obj 
+./Komunikacija.obj 
 
 ASM_DEPS += \
 ./DSP2833x_CodeStartBranch.d 
 
 C_DEPS += \
 ./DSP2833x_GlobalVariableDefs.d \
-./SDU_lab_2_1_priprema_2017_2018.d 
+./Komunikacija.d 
 
 C_DEPS__QUOTED += \
 "DSP2833x_GlobalVariableDefs.d" \
-"SDU_lab_2_1_priprema_2017_2018.d" 
+"Komunikacija.d" 
 
 OBJS__QUOTED += \
 "DSP2833x_CodeStartBranch.obj" \
 "DSP2833x_GlobalVariableDefs.obj" \
-"SDU_lab_2_1_priprema_2017_2018.obj" 
+"Komunikacija.obj" 
 
 ASM_DEPS__QUOTED += \
 "DSP2833x_CodeStartBranch.d" 
@@ -43,6 +43,6 @@ ASM_SRCS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/source/DSP2833x_GlobalVariableDefs.c" \
-"../SDU_lab_2_1_priprema_2017_2018.c" 
+"../Komunikacija.c" 
 
 
