@@ -111,13 +111,15 @@ void main(void)
 		EPwm1Regs.ETPS.bit.SOCBPRD    = 0b1; // SOC on first event
 
 
-
-
 		z = EPwm1Regs.TBPRD / 2;
+
 	    while (1)
 
 	    {
 	    EPwm1Regs.CMPA.half.CMPA = z;
+	    EPwm2Regs.CMPA.half.CMPA = z;
+	    EPwm3Regs.CMPA.half.CMPA = z;
+
 	/*EALLOW;
 	  SysCtrlRegs.WDKEY = 0x55;
 	  SysCtrlRegs.WDKEY = 0xAA;
