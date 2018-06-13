@@ -11,15 +11,9 @@
 
 int a = 1;
 
-_iq b, c, rez;
+_iq b=0, c=0, rez=0, zer=0;
 
 int main(void){
-
-	b = _IQ(10);
-	c = _IQ(2);
-	rez = _IQdiv(b, c);
-
-	a = fun_1(a);
 	// Podesavanje takta dsp-a.
 	dsp_clock_setup();
 
@@ -28,6 +22,13 @@ int main(void){
 
 	// Deklariranje pinova kao izlazi. (Testni program.)
 	test_prog_1_setup();
+
+	b = _IQ(10);
+	c = _IQ(2);
+	rez = _IQdiv(b, c);
+	zer = _IQmpy(b, c);
+
+	a = fun_1(a);
 
 	while (1){
 		watchdog_timer_reset();
