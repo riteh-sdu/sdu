@@ -10,12 +10,22 @@
 
 #endif /* SDU_MAIN_INIT_H_ */
 
+//definicija globalnih varijabli
+
+
 
 //definicija globalnih funkcija
 int fun_1(int);
 
-void DSP_CLOCK_SETUP(void);
-void WATCHDOG_TIMER_SETUP(void);
-void WATCHDOG_TIMER_RESET(void);
+void dsp_clock_setup(void);
+void watchdog_timer_setup(void);
+void watchdog_timer_reset(void);
 
 void delay_loop(long);
+
+void test_prog_1_setup(void);
+void test_prog_1_loop(void);
+
+
+
+

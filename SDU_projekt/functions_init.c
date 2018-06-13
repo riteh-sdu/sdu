@@ -12,7 +12,7 @@ int fun_1(int x){
 	return x + 3;
 }
 
-void DSP_CLOCK_SETUP(void){
+void dsp_clock_setup(void){
 	/*
 	 * Funkcija za podešavanje takta dsp-a.
 	 */
@@ -24,19 +24,21 @@ void DSP_CLOCK_SETUP(void){
 	EDIS;
 }
 
-void WATCHDOG_TIMER_SETUP(void){
+void watchdog_timer_setup(void){
 	/*
 	 * Funkcija za podešavanje watchdog timer-a.
 	 */
+
 	EALLOW;
 	SysCtrlRegs.WDCR = 0x00AF;
 	EDIS;
 }
 
-void WATCHDOG_TIMER_RESET(void){
+void watchdog_timer_reset(void){
 	/*
 	 * Funkcija za resetiranje watchdog timer-a.
 	 */
+
 	EALLOW;
 	SysCtrlRegs.WDKEY = 0x55;
 	SysCtrlRegs.WDKEY = 0xAA;
@@ -47,9 +49,44 @@ void delay_loop(long end){
 	/*
 	 * Delay funkcija
 	 */
+
 	long i;
 	for (i=0; i<end;i++){
-		WATCHDOG_TIMER_RESET();
+		watchdog_timer_reset();
 		asm(" NOP");
 	}
 }
+
+void test_prog_1_setup(void){
+	/*
+	 * Deklariranje pinova kao izlazi. (Testni program.)
+	 */
+
+	EALLOW;
+	GpioCtrlRegs.GPAMUX1.bit.GPIO9 = 0;
+	GpioCtrlRegs.GPADIR.bit.GPIO9 = 1;
+	GpioDataRegs.GPASET.bit.GPIO9 = 0;
+
+	GpioCtrlRegs.GPAMUX1.bit.GPIO11 = 0;
+	GpioCtrlRegs.GPADIR.bit.GPIO11 = 1;
+	GpioDataRegs.GPASET.bit.GPIO11 = 1;
+	EDIS;
+}
+
+void test_prog_1_loop(void){
+	/*
+	 * Naizmjenicno treperenje svjetlecih dioda spojenih na prva dva pina.
+	 * (GPI09 i GPIO11)
+	 * (Testni program.)
+	 */
+
+	delay_loop(1000000);
+	GpioDataRegs.GPATOGGLE.bit.GPIO9 = 1;
+	GpioDataRegs.GPATOGGLE.bit.GPIO11 = 1;
+}
+
+
+
+
+
+
