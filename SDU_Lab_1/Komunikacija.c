@@ -1,10 +1,8 @@
 #include "DSP2833x_Device.h"
-
+#include "stdbool.h"
 #ifndef   GLOBAL_Q
 #define   GLOBAL_Q       18
 #endif
-
-
 #include "IQmathLib.h"
 
 void delay_loop(long);
@@ -12,21 +10,14 @@ void SCIA_Slanje(int b);
 void SCIA_Poruka(char *msg);
 
 
-char msg[30]={'n','=','e','=','d','=','q','\n','\0'};
-
-int16 a,b,c,d;
-
-//char buffer[4]={'3','0','0','0'};
-_iq buffer[4];
+char msg[100]={'w','=','\n','\0'};
+int16 a;
+_iq buffer[5];
 _iq w;
-
-
-
+_iq omega;
 int state;
 
 void main(void) {
-
-
 
 		EALLOW;
 		SysCtrlRegs.WDCR=0x0068;
@@ -70,34 +61,9 @@ void main(void) {
 
 		EDIS;
 
-		a = '1';
-		b = '2';
-		c = '3';
-		d = '4';
-
-
-	 	buffer[0]=_IQ(a) - _IQ(48);
-	    buffer[1]=_IQ(b) - _IQ(48);
-	    buffer[2]=_IQ(c) - _IQ(48);
-	    buffer[3]=_IQ(d) - _IQ(48);
-
-
-	   buffer[0]=_IQmpy(buffer[0],_IQ(1000));
-	   buffer[1]=_IQmpy(buffer[1],_IQ(100));
-	   buffer[2]=_IQmpy(buffer[2],_IQ(10));
-	   buffer[3]=_IQmpy(buffer[3],_IQ(1));
-
-	   w = buffer[3] + buffer[2] + buffer[1] + buffer[0];
-
      while (1){
 
-    	 	//SciaRegs.SCITXBUF='H';
-    	 	//delay_loop(10000000);
-    	 	//SciaRegs.SCITXBUF='A';
-    	 	//delay_loop(10000000);
-
-
-    	 	if(SciaRegs.SCIFFRX.bit.RXFFST>3){  //primanje poruke i spremanje u varijablu a
+    	 	if(SciaRegs.SCIFFRX.bit.RXFFST>4){  //primanje poruke i spremanje u varijablu a
 
     	 		int z = 0;
     	 		while (SciaRegs.SCIFFRX.bit.RXFFST!=0){
@@ -107,17 +73,26 @@ void main(void) {
     	 			z++;
     	 		}
 
+    	 	if(buffer[0]== -786432 || buffer[0]== -1310720){
 
-    	 	buffer[0]=_IQmpy(buffer[0],_IQ(1000));
-    	 	buffer[1]=_IQmpy(buffer[1],_IQ(100));
-    	 	buffer[2]=_IQmpy(buffer[2],_IQ(10));
-    	 	buffer[3]=_IQmpy(buffer[3],_IQ(1));
-
-    	 	w = buffer[3] + buffer[2] + buffer[1] + buffer[0];
+    	 	buffer[1]=_IQmpy(buffer[1],_IQ(1000));
+    	 	buffer[2]=_IQmpy(buffer[2],_IQ(100));
+    	 	buffer[3]=_IQmpy(buffer[3],_IQ(10));
+    	 	buffer[4]=_IQmpy(buffer[4],_IQ(1));
 
 
-    	 		//SciaRegs.SCITXBUF=a;
-    	 	/*	switch (a){
+    	 	w = buffer[4] + buffer[3] + buffer[2] + buffer[1];
+    	 	}
+
+    	 	if(w < _IQ(1499)){
+    	 		if(buffer[0]== -786432){
+    	 			omega=_IQmpy(w,_IQ(-1));}
+    	 		if(buffer[0]== -1310720){
+    	 			omega = w;}
+    	 				}
+
+    	 		/*SciaRegs.SCITXBUF=a;
+    	 		switch (a){
     	 		case '1':
     	 			state=1;
     	 			break;
@@ -131,13 +106,13 @@ void main(void) {
     	 			state=4;
     	 			break;
     	 		}*/
-    	 		}
+    	 	}
 
     	 	SCIA_Poruka(msg);                  //slanje poruke
     	 	delay_loop(10000000);
 
-     }
 
+     }
 }
 void delay_loop (long end)	// Delay_loop funkcija
 {
