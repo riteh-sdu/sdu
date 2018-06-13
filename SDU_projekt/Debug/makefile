@@ -10,9 +10,12 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./DSP2833x_CodeStartBranch.obj" \
+"./DSP2833x_GlobalVariableDefs.obj" \
+"./functions_init.obj" \
 "./main.obj" \
-"./test.obj" \
 "../28335_RAM_lnk.cmd" \
+"C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -153,8 +156,9 @@ SDU_projekt.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "main.d" "test.d" 
-	-$(RM) "main.obj" "test.obj" 
+	-$(RM) "DSP2833x_GlobalVariableDefs.d" "functions_init.d" "main.d" 
+	-$(RM) "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "functions_init.obj" "main.obj" 
+	-$(RM) "DSP2833x_CodeStartBranch.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

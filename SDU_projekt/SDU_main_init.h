@@ -13,5 +13,6 @@
 #endif /* SDU_MAIN_INIT_H_ */
 
 
-int fun_1(int x);
-
+//definicija globalnih funkcija
+int fun_1(int);
+void fun_2(void);

@@ -24,4 +24,26 @@
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>DSP2833x_CodeStartBranch.asm</name>
+			<type>1</type>
+			<locationURI>controlSUITE/device_support/f2833x/v141/DSP2833x_common/source/DSP2833x_CodeStartBranch.asm</locationURI>
+		</link>
+		<link>
+			<name>DSP2833x_Device.h</name>
+			<type>1</type>
+			<locationURI>controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Device.h</locationURI>
+		</link>
+		<link>
+			<name>DSP2833x_GlobalVariableDefs.c</name>
+			<type>1</type>
+			<locationURI>controlSUITE/device_support/f2833x/v141/DSP2833x_headers/source/DSP2833x_GlobalVariableDefs.c</locationURI>
+		</link>
+		<link>
+			<name>DSP2833x_Headers_nonBIOS.cmd</name>
+			<type>1</type>
+			<locationURI>controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
