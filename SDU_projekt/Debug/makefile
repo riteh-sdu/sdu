@@ -11,6 +11,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./main.obj" \
+"./test.obj" \
 "../28335_RAM_lnk.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -152,8 +153,8 @@ SDU_projekt.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "main.d" 
-	-$(RM) "main.obj" 
+	-$(RM) "main.d" "test.d" 
+	-$(RM) "main.obj" "test.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
