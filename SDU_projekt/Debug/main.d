@@ -20,6 +20,8 @@ main.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include
 main.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_SysCtrl.h
 main.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h
 main.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h
+main.obj: ../IQmathLib.h
+main.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h
 main.obj: ../SDU_main_init.h
 
 ../main.c: 
@@ -42,4 +44,6 @@ C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_SysCtrl.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h: 
+../IQmathLib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h: 
 ../SDU_main_init.h: 

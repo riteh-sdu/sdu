@@ -16,6 +16,7 @@ ORDERED_OBJS += \
 "./main.obj" \
 "../28335_RAM_lnk.cmd" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd" \
+"../IQmath_fpu32.lib" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -140,7 +141,7 @@ BIN_OUTPUTS__QUOTED += \
 all: SDU_projekt.out
 
 # Tool invocations
-SDU_projekt.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+SDU_projekt.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C2000 Linker'
 	"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --display_error_number --diag_warning=225 --diag_wrap=off -z -m"SDU_projekt.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="SDU_projekt_linkInfo.xml" --rom_model -o "SDU_projekt.out" $(ORDERED_OBJS)

@@ -7,6 +7,9 @@ CMD_SRCS += \
 ../28335_RAM_lnk.cmd \
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd 
 
+LIB_SRCS += \
+../IQmath_fpu32.lib 
+
 ASM_SRCS += \
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/source/DSP2833x_CodeStartBranch.asm 
 
