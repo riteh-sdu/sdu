@@ -8,7 +8,7 @@
 #include "DSP28x_Project.h"
 #include "DSP2833x_Device.h"
 #include "IQmathLib.h"
-#define GLOBAL_Q18
+#define GLOBAL_Q 18
 
 #define RED 600
 #define FED 600
@@ -28,11 +28,21 @@ void Setup_ePWM(void);
 interrupt void int_rut(void);
 
 // Dio interupt_2
+// Preracunate varijable
+_iq U;														// Volt
+_iq UgV = _IQ(65);											// granicni visoki napon
+_iq UgN = _IQ(55);											// granicni niski napon
+_iq kV = _IQ(11.0011);										// kV = 1/0.0909 , 0.0909 V/podjeljak
 
-_iq TH_HV = _IQ(2000);										// granicna vrijednost za visoki napon
-_iq TH_LV = _IQ(1000);										// granicna vrijednost za niski napon
-_iq TH_mzI = _IQ(200);										// granicna vrijednost za mali zateg struje
-_iq TH_vzI = _IQ(100);										// granicna vrijednost za veliki zateg struje
+_iq Ipov,IU,IV;
+_iq Ig_mz = _IQ(0.5);										// granicna struja za mali zateg 	(6A)
+_iq Ig_vz = _IQ(5);											// granicna struja za veliki zateg 	(5A)
+_iq kI = _IQ(327.869);										// kI = 1/0.00305 , 0.00305 V/podjeljak
+
+_iq TH_HV = _IQ(0);											// granicna vrijednost za visoki napon 	(65V)
+_iq TH_LV = _IQ(0);											// granicna vrijednost za niski napon	(55V)
+_iq TH_mzI = _IQ(0);										// granicna vrijednost za mali zateg struje
+_iq TH_vzI = _IQ(0);										// granicna vrijednost za veliki zateg struje
 
 _iq MV_napon = _IQ(0);										// vrijednost napona iz moving average filtra
 _iq MV_struja_I_pov = _IQ(0);								// vrijednost struje faze W iz moving average filtra
@@ -54,8 +64,8 @@ int i_VN = 0, i_NN = 0; 									// brojaèi za napone (visoki i niski)
 int i_mz_pov = 0, i_mz_U = 0, i_mz_V = 0;					// brojaci za struje (mali zateg)
 int i_vz_pov = 0, i_vz_U = 0, i_vz_V = 0;					// brojaci za struje (veliki zateg)
 
-int T_mz = 20, T_vz = 1000;									// vrijeme za strju sa malim i velikim zategom
-long int vrijeme_VN = 100, vrijeme_NN = 1000;				// vrijeme za visoki napon i niski napon
+int T_mz = 20, T_vz = 1000;									// vrijeme za strju sa malim i velikim zategom (2ms) i (100ms)
+long int vrijeme_VN = 1000, vrijeme_NN = 1000;				// vrijeme za visoki napon i niski napon (100ms)
 
 int test_VN = 0, test_MN = 0;								// detekcija visokog i niskog napona
 int test_Imz_U = 0, test_Imz_V = 0, test_Imz_pov = 0;		// detekcija struje sa malim zategom
@@ -63,6 +73,13 @@ int test_Ivz_U = 0, test_Ivz_V = 0, test_Ivz_pov = 0;		// detekcija struja sa ve
 
 
 void Interupt_2(void){
+	// konverzija varijabli
+
+	TH_HV = _IQmpy(UgV,kV);
+	TH_LV = _IQmpy(UgN,kV);
+	TH_mzI = _IQmpy(Ig_mz,kI);
+	TH_vzI = _IQmpy(Ig_vz,kI);
+
 	// Bufferi 							------------------------------------------------------
 
 	// Buffer za napon
@@ -111,6 +128,7 @@ void Interupt_2(void){
 	if (MV_napon < 0){
 		MV_napon = _IQmpy(MV_napon,_IQ(-1));
 	}
+
 	// minimalna vrijednost povratne struje
 	if (MV_struja_I_pov < 0){
 		MV_struja_I_pov = _IQmpy(MV_struja_I_pov,_IQ(-1));
@@ -123,6 +141,19 @@ void Interupt_2(void){
 	if (MV_struja_V < 0){
 		MV_struja_V = _IQmpy(MV_struja_V,_IQ(-1));
 	}
+
+	U = _IQmpy(MV_napon,_IQ(0.000732));
+	U = _IQmpy(U,_IQ(124.213));
+
+	Ipov = _IQmpy(MV_struja_I_pov,_IQ(0.00305));
+	Ipov = _IQmpy(Ipov,_IQ(4.1667));
+
+	IU = _IQmpy(MV_struja_U,_IQ(0.00305));
+	IU = _IQmpy(IU,_IQ(4.1667));
+
+	IV = _IQmpy(MV_struja_V,_IQ(0.00305));
+	IV = _IQmpy(IV,_IQ(4.1667));
+
 
 	// Prenaponska zastita 		------------------------------------------------------
 	if (MV_napon <= TH_HV){
