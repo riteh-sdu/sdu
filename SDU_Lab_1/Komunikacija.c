@@ -1,5 +1,5 @@
 /*Brzinu u terminal unositi s + ili - (+1400 ili -1350)
-* U slucaju unosa brzine manje od 1000 unositi na slijedeci nacin npr. +0800 ili -900 radi ispravnog punjenja buffera
+* U slucaju unosa brzine manje od 1000 unositi na slijedeci nacin npr. +0800 ili -0900 radi ispravnog punjenja buffera
 */
 #include "DSP2833x_Device.h"
 #include "stdbool.h"
