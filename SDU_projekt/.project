@@ -45,5 +45,10 @@
 			<type>1</type>
 			<locationURI>controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd</locationURI>
 		</link>
+		<link>
+			<name>F28335.cmd</name>
+			<type>1</type>
+			<locationURI>controlSUITE/device_support/f2833x/v141/DSP2833x_common/cmd/F28335.cmd</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>

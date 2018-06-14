@@ -12,8 +12,9 @@ GEN_CMDS__FLAG :=
 ORDERED_OBJS += \
 "./DSP2833x_CodeStartBranch.obj" \
 "./DSP2833x_GlobalVariableDefs.obj" \
-"./functions_init.obj" \
 "./main.obj" \
+"./sdu_source/adc.obj" \
+"./sdu_source/init.obj" \
 "../28335_RAM_lnk.cmd" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd" \
 "../IQmath_fpu32.lib" \
@@ -28,7 +29,9 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include sdu_source/subdir_vars.mk
 -include subdir_rules.mk
+-include sdu_source/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -157,8 +160,8 @@ SDU_projekt.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "DSP2833x_GlobalVariableDefs.d" "functions_init.d" "main.d" 
-	-$(RM) "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "functions_init.obj" "main.obj" 
+	-$(RM) "DSP2833x_GlobalVariableDefs.d" "main.d" "sdu_source\adc.d" "sdu_source\init.d" 
+	-$(RM) "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "main.obj" "sdu_source\adc.obj" "sdu_source\init.obj" 
 	-$(RM) "DSP2833x_CodeStartBranch.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

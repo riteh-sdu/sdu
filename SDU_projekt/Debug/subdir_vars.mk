@@ -15,13 +15,11 @@ C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/source/DSP2833x_Co
 
 C_SRCS += \
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/source/DSP2833x_GlobalVariableDefs.c \
-../functions_init.c \
 ../main.c 
 
 OBJS += \
 ./DSP2833x_CodeStartBranch.obj \
 ./DSP2833x_GlobalVariableDefs.obj \
-./functions_init.obj \
 ./main.obj 
 
 ASM_DEPS += \
@@ -29,18 +27,15 @@ ASM_DEPS += \
 
 C_DEPS += \
 ./DSP2833x_GlobalVariableDefs.d \
-./functions_init.d \
 ./main.d 
 
 C_DEPS__QUOTED += \
 "DSP2833x_GlobalVariableDefs.d" \
-"functions_init.d" \
 "main.d" 
 
 OBJS__QUOTED += \
 "DSP2833x_CodeStartBranch.obj" \
 "DSP2833x_GlobalVariableDefs.obj" \
-"functions_init.obj" \
 "main.obj" 
 
 ASM_DEPS__QUOTED += \
@@ -51,7 +46,6 @@ ASM_SRCS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/source/DSP2833x_GlobalVariableDefs.c" \
-"../functions_init.c" \
 "../main.c" 
 
 

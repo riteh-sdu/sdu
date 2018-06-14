@@ -2,3 +2,6 @@
 1528906973275	Move 'DSP2833x_GlobalVariableDefs.c' to 'DSP_headers'
 1528907019451	Move 'DSP2833x_GlobalVariableDefs.c' to 'SDU_projekt'
 1528912755879	Move 19 resources to 'SDU_projekt'
+1528964825880	Rename resource 'DSP_headers'
+1528969266745	Rename resource 'SDU_main_init.h'
+1528969401527	Rename resource 'functions_init.c'

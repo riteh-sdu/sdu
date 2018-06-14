@@ -16,13 +16,27 @@ int fun_1(int x)
 /*
  * Funkcija za podešavanje takta dsp-a.
  */
-
-// 30 MHz * 10 / 2 = 150MHz
 void dsp_clock_setup(void)
 {
 	EALLOW;
-	SysCtrlRegs.PLLCR.bit.DIV = 10;
-	SysCtrlRegs.PLLSTS.bit.DIVSEL = 2;
+	SysCtrlRegs.PLLCR.bit.DIV = 10;			// Skaliranje frekvencije oscilatora. (30 MHz * 10 = 300 MHz)
+	SysCtrlRegs.PLLSTS.bit.DIVSEL = 2;		// 300 MHz / 2 = 150MHz
+
+	SysCtrlRegs.HISPCP.bit.HSPCLK = 0; 		// Skaliranje frekvencije takta koji dolazi na adc jedinicu. (f / 1)
+	SysCtrlRegs.PCLKCR0.bit.ADCENCLK = 1; 	// Omoguæi dovod sistemskog takta na adc jedinicu.
+	EDIS;
+}
+
+/*
+ * Funkcija za ubrzavanje izvoðenja programa iz flash memorije.
+ */
+void dsp_flash_setup(void)
+{
+	EALLOW;
+	FlashRegs.FBANKWAIT.bit.PAGEWAIT = 5;	// Smanjuje vrijeme èekanja.
+	FlashRegs.FBANKWAIT.bit.RANDWAIT = 5;	// Smanjuje vrijeme èekanja.
+	FlashRegs.FOTPWAIT.bit.OTPWAIT = 8;		// Smanjuje vrijeme èekanja.
+	FlashRegs.FOPT.bit.ENPIPE = 1;			// Ubrzava èitanje iz flesh-a (pipeline).
 	EDIS;
 }
 
