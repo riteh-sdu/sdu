@@ -90,7 +90,7 @@ void Interupt_2(void){
 	Buffer_I_V[3] = Buffer_I_V[2];
 	Buffer_I_V[2] = Buffer_I_V[1];
 	Buffer_I_V[1] = Buffer_I_V[0];
-	Buffer_I_V[0] =  _IQ(Ifb_V_offset) - _IQ(Ifb_V_offset);
+	Buffer_I_V[0] =  _IQ(Ifb_V) - _IQ(Ifb_V_offset);
 
 	// Radimo Moving average filter 	------------------------------------------------------
 
