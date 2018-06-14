@@ -8,11 +8,9 @@
 #ifndef SDU_HEADERS_INIT_H_
 #define SDU_HEADERS_INIT_H_
 
-#endif /* SDU_MAIN_INIT_H_ */
+// deklaracija globalnih varijabli
 
-// definicija globalnih varijabli
-
-//definicija globalnih funkcija
+// deklaracija globalnih funkcija
 int fun_1(int);
 
 void dsp_clock_setup(void);
@@ -24,4 +22,7 @@ void delay_loop(long);
 
 void test_prog_1_setup(void);
 void test_prog_1_loop(void);
+
+
+#endif /* SDU_MAIN_INIT_H_ */
 

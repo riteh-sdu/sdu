@@ -21,6 +21,7 @@ sdu_source/adc.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_heade
 sdu_source/adc.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h
 sdu_source/adc.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h
 sdu_source/adc.obj: ../sdu_source/../sdu_headers/init.h
+sdu_source/adc.obj: ../sdu_source/../sdu_headers/adc.h
 
 ../sdu_source/adc.c: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Device.h: 
@@ -43,3 +44,4 @@ C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h: 
 ../sdu_source/../sdu_headers/init.h: 
+../sdu_source/../sdu_headers/adc.h: 

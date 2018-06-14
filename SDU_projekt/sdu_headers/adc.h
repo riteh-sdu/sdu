@@ -8,22 +8,24 @@
 #ifndef SDU_HEADERS_ADC_H_
 #define SDU_HEADERS_ADC_H_
 
-#endif /* SDU_HEADERS_ADC_H_ */
+// deklaracija globalnih varijabli
+extern unsigned long Ifb_Ret;
+extern unsigned long Ifb_U;
+extern unsigned long Ifb_V;
+extern unsigned long Vfb_Bus;
 
-// definicija globalnih varijabli
-unsigned long Ifb_Ret;
-unsigned long Ifb_U;
-unsigned long Ifb_V;
-unsigned long Vfb_Bus;
+extern unsigned long Ifb_Ret_offset;
+extern unsigned long Ifb_U_offset;
+extern unsigned long Ifb_V_offset;
+extern unsigned long Vfb_Bus_offset;
 
-unsigned long Ifb_Ret_offset;
-unsigned long Ifb_U_offset;
-unsigned long Ifb_V_offset;
-unsigned long Vfb_Bus_offset;
-
-// globalne funkcije adc grupe
-interrupt void int_rut(void);
-
-void interrupt_setup(void);
+// deklaracija globalnih funkcija
 void adc_setup(void);
 void adc_loop(void);
+
+void interrupt_setup_adc(void);
+interrupt void int_rut(void);
+
+void fun_offset_adc(void);
+
+#endif /* SDU_HEADERS_ADC_H_ */

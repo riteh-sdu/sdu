@@ -6,13 +6,24 @@
  */
 
 #include "DSP2833x_Device.h"
-//#include "IQmathLib.h"
 
 #include "../sdu_headers/init.h"
+#include "../sdu_headers/adc.h"
 
 /*
  * Funkcija za podešavanje adc registara.
  */
+
+unsigned long Ifb_Ret = 0;
+unsigned long Ifb_U = 0;
+unsigned long Ifb_V = 0;
+unsigned long Vfb_Bus = 0;
+
+unsigned long Ifb_Ret_offset = 0;
+unsigned long Ifb_U_offset = 0;
+unsigned long Ifb_V_offset = 0;
+unsigned long Vfb_Bus_offset = 0;
+
 void adc_setup(void)
 {
 	watchdog_timer_reset();
@@ -56,6 +67,104 @@ void adc_setup(void)
     AdcRegs.ADCREFSEL.bit.REF_SEL = 0b00;       // Internal reference (default)
     AdcRegs.ADCCHSELSEQ1.bit.CONV00 = 0b0100;   // ADC-A4 Ifb-Ret, ADC-B4 Ifb-U
     AdcRegs.ADCCHSELSEQ1.bit.CONV01 = 0b1110;   // ADC-B6 Ifb-V
-    AdcRegs.ADCCHSELSEQ1.bit.CONV02 = 0b0001; // ADC-A1 Vfb-Bus
+    AdcRegs.ADCCHSELSEQ1.bit.CONV02 = 0b0001; 	// ADC-A1 Vfb-Bus
 	EDIS;
 }
+
+/*
+ * Funkcija u glavnoj petlji adc-a.
+ */
+void adc_loop(void)
+{
+    Ifb_Ret = AdcMirror.ADCRESULT0;
+    Ifb_U = AdcMirror.ADCRESULT1;
+    Ifb_V = AdcMirror.ADCRESULT3;
+    Vfb_Bus = AdcMirror.ADCRESULT4;
+}
+
+/*
+ * Funkcija za podešavanje prekida. (adc)
+ */
+void interrupt_setup_adc(void)
+{
+	watchdog_timer_reset();
+
+    DINT;
+    IFR = 0x0000;       // No pending interrupts
+    IER = 0x0000;       // Maskable interrupts disabled
+
+    PieCtrlRegs.PIECTRL.bit.ENPIE = 0;
+
+    // Interrupt Flag Register (IFR)
+    PieCtrlRegs.PIEIFR1.all = 0x0000;
+    PieCtrlRegs.PIEIFR2.all = 0x0000;
+    PieCtrlRegs.PIEIFR3.all = 0x0000;
+    PieCtrlRegs.PIEIFR4.all = 0x0000;
+    PieCtrlRegs.PIEIFR5.all = 0x0000;
+    PieCtrlRegs.PIEIFR6.all = 0x0000;
+    PieCtrlRegs.PIEIFR7.all = 0x0000;
+    PieCtrlRegs.PIEIFR8.all = 0x0000;
+    PieCtrlRegs.PIEIFR9.all = 0x0000;
+    PieCtrlRegs.PIEIFR10.all = 0x0000;
+    PieCtrlRegs.PIEIFR11.all = 0x0000;
+    PieCtrlRegs.PIEIFR12.all = 0x0000;
+
+    // Interrupt Enable Register (IER)
+    PieCtrlRegs.PIEIER1.all = 0x0000;
+    PieCtrlRegs.PIEIER2.all = 0x0000;
+    PieCtrlRegs.PIEIER3.all = 0x0000;
+    PieCtrlRegs.PIEIER4.all = 0x0000;
+    PieCtrlRegs.PIEIER5.all = 0x0000;
+    PieCtrlRegs.PIEIER6.all = 0x0000;
+    PieCtrlRegs.PIEIER7.all = 0x0000;
+    PieCtrlRegs.PIEIER8.all = 0x0000;
+    PieCtrlRegs.PIEIER9.all = 0x0000;
+    PieCtrlRegs.PIEIER10.all = 0x0000;
+    PieCtrlRegs.PIEIER11.all = 0x0000;
+    PieCtrlRegs.PIEIER12.all = 0x0000;
+
+    PieCtrlRegs.PIECTRL.bit.ENPIE = 1;      // Enable the PIE
+    PieVectTable.SEQ1INT = &int_rut;
+    PieCtrlRegs.PIEIER1.bit.INTx1 = 1;
+    IER |= 0x1;                             // Enable interrupt core line 1 (INT1).
+    EINT;                                   // Enable control – interrupts (EINT)
+    ERTM;                                   // Enable debug – interrupts (ERTM)
+    EDIS;
+}
+
+/*
+ * Prekidna rutina. (adc)
+ */
+interrupt void int_rut(void)
+{
+    AdcRegs.ADCST.bit.INT_SEQ1_CLR = 1;     // Clear Interrupt Flag ADC Sequencer 1
+    AdcRegs.ADCTRL2.bit.RST_SEQ1 = 0b1;     // Immediate reset SEQ1 to "initial state"
+    PieCtrlRegs.PIEACK.bit.ACK1 = 1; 		// PIE Interrupt Acknowledge Register
+}
+
+/*
+ * Izracun offset vrijednosti. (adc)
+ */
+void fun_offset_adc(void)
+{
+    //DELAY_US(1000);
+
+    // Izracun offset vrijednosti
+    int i;
+    for(i = 0; i < 1024; i++)
+    {
+        Ifb_Ret_offset = AdcMirror.ADCRESULT0 + Ifb_Ret_offset;
+        Ifb_U_offset = AdcMirror.ADCRESULT1 + Ifb_U_offset;
+        Ifb_V_offset = AdcMirror.ADCRESULT3 + Ifb_V_offset;
+        Vfb_Bus_offset = AdcMirror.ADCRESULT4 + Vfb_Bus_offset;
+        //DELAY_US(100);
+    }
+
+    // Izracun offset vrijednosti
+    Ifb_Ret_offset = Ifb_Ret_offset >> 10;
+    Ifb_U_offset = Ifb_U_offset >> 10;
+    Ifb_V_offset = Ifb_V_offset >> 10;
+    Vfb_Bus_offset = Vfb_Bus_offset >> 10;
+}
+
+
