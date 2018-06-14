@@ -10,10 +10,6 @@
 #include "../sdu_headers/init.h"
 #include "../sdu_headers/adc.h"
 
-/*
- * Funkcija za podešavanje adc registara.
- */
-
 unsigned long Ifb_Ret = 0;
 unsigned long Ifb_U = 0;
 unsigned long Ifb_V = 0;
@@ -24,6 +20,9 @@ unsigned long Ifb_U_offset = 0;
 unsigned long Ifb_V_offset = 0;
 unsigned long Vfb_Bus_offset = 0;
 
+/*
+ * Funkcija za podešavanje adc registara.
+ */
 void adc_setup(void)
 {
 	watchdog_timer_reset();
@@ -150,9 +149,10 @@ void fun_offset_adc(void)
     //DELAY_US(1000);
 
     // Izracun offset vrijednosti
-    int i;
-    for(i = 0; i < 1024; i++)
+    int adc_i;
+    for(adc_i = 0; adc_i < 1024; adc_i++)
     {
+    	watchdog_timer_reset();
         Ifb_Ret_offset = AdcMirror.ADCRESULT0 + Ifb_Ret_offset;
         Ifb_U_offset = AdcMirror.ADCRESULT1 + Ifb_U_offset;
         Ifb_V_offset = AdcMirror.ADCRESULT3 + Ifb_V_offset;

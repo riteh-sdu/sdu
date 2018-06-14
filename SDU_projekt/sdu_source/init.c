@@ -66,8 +66,8 @@ void watchdog_timer_reset(void)
  */
 void delay_loop(long end)
 {
-	long i;
-	for (i=0; i<end;i++)
+	long init_i;
+	for (init_i=0; init_i<end; init_i++)
 	{
 		watchdog_timer_reset();
 		asm(" NOP");
@@ -97,7 +97,7 @@ void test_prog_1_setup(void)
  */
 void test_prog_1_loop(void)
 {
-	delay_loop(1000000);
+	//delay_loop(1000000);
 	GpioDataRegs.GPATOGGLE.bit.GPIO9 = 1;
 	GpioDataRegs.GPATOGGLE.bit.GPIO11 = 1;
 }
