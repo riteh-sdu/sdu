@@ -1,0 +1,11 @@
+/*
+ * test.c
+ *
+ *  Created on: 13. lip 2018.
+ *      Author: Lorango
+ */
+
+
+int fun_1(int x){
+	return x + 3
+}
