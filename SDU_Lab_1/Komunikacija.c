@@ -1,3 +1,6 @@
+/*Brzinu u terminal unositi s + ili - (+1400 ili -1350)
+* U slucaju unosa brzine manje od 1000 unositi na slijedeci nacin npr. +0800 ili -900 radi ispravnog punjenja buffera
+*/
 #include "DSP2833x_Device.h"
 #include "stdbool.h"
 #ifndef   GLOBAL_Q
@@ -5,12 +8,13 @@
 #endif
 #include "IQmathLib.h"
 
+// Prototipovi funkcija
 void delay_loop(long);
 void SCIA_Slanje(int b);
 void SCIA_Poruka(char *msg);
 
-
-char msg[100]={'w','=','\n','\0'};
+// Varijable
+char msg[30]={'o','m','e','g','a','\n','\0'};
 int16 a;
 _iq buffer[5];
 _iq w;
@@ -31,18 +35,18 @@ void main(void) {
 		GpioCtrlRegs.GPADIR.bit.GPIO28=0;
 		GpioCtrlRegs.GPADIR.bit.GPIO29=1;
 
-		SciaRegs.SCICCR.bit.PARITY=0; //odd
+		SciaRegs.SCICCR.bit.PARITY=0; 			//	ODD
 		SciaRegs.SCICCR.bit.PARITYENA=1;
-		SciaRegs.SCICCR.bit.SCICHAR=0b111; //8 bita
-		SciaRegs.SCICCR.bit.STOPBITS=0; //stop bit
+		SciaRegs.SCICCR.bit.SCICHAR=0b111; 		//	8 BITA
+		SciaRegs.SCICCR.bit.STOPBITS=0; 		//	STOP BIT
 		SciaRegs.SCICCR.bit.ADDRIDLE_MODE=0;
 		SciaRegs.SCICCR.bit.LOOPBKENA=0;
 
-		SciaRegs.SCIHBAUD=0x0001;  // 9600 baud
+		SciaRegs.SCIHBAUD=0x0001;  				// 9600 BAUD
 		SciaRegs.SCILBAUD=0x00E7;
 
-		SciaRegs.SCICTL2.bit.TXINTENA=0; //interrupt
-		SciaRegs.SCICTL2.bit.RXBKINTENA=0; //interrupt
+		SciaRegs.SCICTL2.bit.TXINTENA=0; 		// Interrupt
+		SciaRegs.SCICTL2.bit.RXBKINTENA=0; 		// Interrupt
 
 		SciaRegs.SCICTL1.bit.RXENA=1;
 		SciaRegs.SCICTL1.bit.TXENA=1;
@@ -51,7 +55,7 @@ void main(void) {
 		SciaRegs.SCICTL1.bit.RXERRINTENA=0;
 		SciaRegs.SCICTL1.all = 0x0023;
 
-		SciaRegs.SCIFFTX.all=0xE000;  //fifo
+		SciaRegs.SCIFFTX.all=0xE000;  			// FIFO
 		SciaRegs.SCIFFRX.all=0x6066;
 		SciaRegs.SCIFFCT.all=0x0000;
 		SciaRegs.SCICTL1.bit.SWRESET=1;
@@ -63,7 +67,7 @@ void main(void) {
 
      while (1){
 
-    	 	if(SciaRegs.SCIFFRX.bit.RXFFST>4){  //primanje poruke i spremanje u varijablu a
+    	 	if(SciaRegs.SCIFFRX.bit.RXFFST>4){  // Primanje poruke i spremanje u varijablu a
 
     	 		int z = 0;
     	 		while (SciaRegs.SCIFFRX.bit.RXFFST!=0){
@@ -73,25 +77,27 @@ void main(void) {
     	 			z++;
     	 		}
 
-    	 	if(buffer[0]== -786432 || buffer[0]== -1310720){
+    	 	if(buffer[0]== -786432 || buffer[0]== -1310720){		// Postupak za provjeru pozitivnog i negativnog smjera vrtnje
 
-    	 	buffer[1]=_IQmpy(buffer[1],_IQ(1000));
+    	 	buffer[1]=_IQmpy(buffer[1],_IQ(1000));					// Racunanje unesene brzine
     	 	buffer[2]=_IQmpy(buffer[2],_IQ(100));
     	 	buffer[3]=_IQmpy(buffer[3],_IQ(10));
     	 	buffer[4]=_IQmpy(buffer[4],_IQ(1));
 
 
-    	 	w = buffer[4] + buffer[3] + buffer[2] + buffer[1];
+    	 	w = buffer[4] + buffer[3] + buffer[2] + buffer[1];		// Varijabla za spremanje unesene brzine s terminala
     	 	}
 
-    	 	if(w < _IQ(1499)){
+    	 	if(w <= _IQ(1500)){										// Zastita u slucaju unosa brzine vece od 1500 rpm-a
     	 		if(buffer[0]== -786432){
     	 			omega=_IQmpy(w,_IQ(-1));}
     	 		if(buffer[0]== -1310720){
-    	 			omega = w;}
+    	 			omega = w;}										// Varijabla omega gdje je spremljena brzina s + ili - predznakom za daljnje koristenje
     	 				}
 
-    	 		/*SciaRegs.SCITXBUF=a;
+    	 		/*Dio za grupu koja je trebala definirati stanja
+    	 		 *
+    	 		 * SciaRegs.SCITXBUF=a;
     	 		switch (a){
     	 		case '1':
     	 			state=1;
@@ -108,13 +114,13 @@ void main(void) {
     	 		}*/
     	 	}
 
-    	 	SCIA_Poruka(msg);                  //slanje poruke
+    	 	SCIA_Poruka(msg);                  //	Slanje poruke Herculesu
     	 	delay_loop(10000000);
 
 
      }
 }
-void delay_loop (long end)	// Delay_loop funkcija
+void delay_loop (long end)						// Delay loop funkcija
 {
 	long i;
 	for (i=0; i<end; i++)
@@ -126,7 +132,7 @@ void delay_loop (long end)	// Delay_loop funkcija
 	EDIS;
 	}
 }
-void SCIA_Slanje(int b){
+void SCIA_Slanje(int b){						// Funkcije za slanje i pakiranje poruke
 	while(SciaRegs.SCIFFTX.bit.TXFFST != 0) {}
     SciaRegs.SCITXBUF=b;
 }
