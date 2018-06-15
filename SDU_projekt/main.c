@@ -9,6 +9,7 @@
 #include "sdu_headers/adc.h"
 #include "sdu_headers/pwm.h"
 #include "sdu_headers/kom.h"
+#include "sdu_headers/qep.h"
 
 #define GLOBAL_Q 18
 
@@ -26,18 +27,13 @@ int main(void)
 	interrupt_setup_adc();
 	pwm_setup();
 	kom_setup();
+	qep_setup();
 
 	test_prog_1_setup();		// Deklariranje pinova kao izlazi. (Testni program.)
-
-	//b = _IQ(10);
-	//c = _IQ(2);
-	//rez = _IQdiv(b, c);
-	//zer = _IQmpy(b, c);
 
 	a = fun_1(a);
 	//fun_offset_adc();
 
-	a = a + a;
 	a = a + a;
 
 	while (1)
@@ -50,7 +46,15 @@ int main(void)
 
 		adc_loop();
 		pwm_loop();
-		kom_loop();
+
+		/*
+		 *  Po meni bi trebalo napisat kod ki ne koristi u sebi beskonaènu petlju.
+		 *  Jer ako se (ne šalje/ ne prima) poruka progrm zaglavi i watchdog resetira dsp.
+		 */
+		//kom_loop();
+
+		qep_loop();
+
 
 		a = a + a;
 	}

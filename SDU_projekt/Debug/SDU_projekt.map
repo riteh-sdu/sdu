@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v15.12.3                    
 ******************************************************************************
->> Linked Fri Jun 15 16:34:50 2018
+>> Linked Fri Jun 15 22:56:46 2018
 
 OUTPUT FILE NAME:   <SDU_projekt.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 000093ad
+ENTRY POINT SYMBOL: "_c_int00"  address: 00009453
 
 
 MEMORY CONFIGURATION
@@ -15,14 +15,14 @@ PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
   RAMM0                 00000050   000003b0  00000000  000003b0  RWIX
   RAML0                 00008000   00001000  00000054  00000fac  RWIX
-  RAML1                 00009000   00001000  0000053a  00000ac6  RWIX
+  RAML1                 00009000   00001000  00000654  000009ac  RWIX
   RAML2                 0000a000   00001000  00000000  00001000  RWIX
   RAML3                 0000b000   00001000  00000000  00001000  RWIX
   ZONE7A                00200000   0000fc00  00000000  0000fc00  RWIX
   CSM_RSVD              0033ff80   00000076  00000000  00000076  RWIX
   CSM_PWL               0033fff8   00000008  00000000  00000008  RWIX
   ADC_CAL               00380080   00000009  00000000  00000009  RWIX
-  IQTABLES              003fe000   00000b50  00000000  00000b50  RWIX
+  IQTABLES              003fe000   00000b50  00000b50  00000000  RWIX
   IQTABLES2             003feb50   0000008c  00000000  0000008c  RWIX
   FPUTABLES             003febdc   000006a0  00000000  000006a0  RWIX
   BOOTROM               003ff27c   00000d44  00000000  00000d44  RWIX
@@ -79,8 +79,8 @@ PAGE 1:
   SCIB                  00007750   00000010  00000010  00000000  RWIX
   SCIC                  00007770   00000010  00000010  00000000  RWIX
   I2CA                  00007900   00000040  00000022  0000001e  RWIX
-  RAML4                 0000c000   00001000  00000048  00000fb8  RWIX
-  RAML5                 0000d000   00001000  00000004  00000ffc  RWIX
+  RAML4                 0000c000   00001000  00000056  00000faa  RWIX
+  RAML5                 0000d000   00001000  00000008  00000ff8  RWIX
   RAML6                 0000e000   00001000  00000000  00001000  RWIX
   RAML7                 0000f000   00001000  00000000  00001000  RWIX
   ZONE7B                0020fc00   00000400  00000000  00000400  RWIX
@@ -107,42 +107,54 @@ codestart
                   0000804e    00000004     pwm.obj (.cinit)
                   00008052    00000002     --HOLE-- [fill = 0]
 
-.text      0    00009000    0000053a     
-                  00009000    000000f3     pwm.obj (.text)
-                  000090f3    000000f1     kom.obj (.text)
-                  000091e4    000000d4     adc.obj (.text)
-                  000092b8    00000083     rts2800_fpu32.lib : fd_mpy.obj (.text)
-                  0000933b    00000072     init.obj (.text)
-                  000093ad    00000056     rts2800_fpu32.lib : boot.obj (.text)
-                  00009403    00000046                       : cpy_tbl.obj (.text)
-                  00009449    0000002e     main.obj (.text)
-                  00009477    00000029     rts2800_fpu32.lib : exit.obj (.text)
-                  000094a0    0000001f                       : fd_tol.obj (.text)
-                  000094bf    0000001d                       : i_tofd.obj (.text)
-                  000094dc    0000001a                       : cpy_utils.obj (.text)
-                  000094f6    00000019                       : args_main.obj (.text)
-                  0000950f    00000017     adc.obj (.text:retain)
-                  00009526    00000009     rts2800_fpu32.lib : _lock.obj (.text)
-                  0000952f    00000008     DSP2833x_CodeStartBranch.obj (.text)
-                  00009537    00000002     rts2800_fpu32.lib : pre_init.obj (.text)
-                  00009539    00000001                       : startup.obj (.text)
+.text      0    00009000    0000060d     
+                  00009000    000000f3     kom.obj (.text)
+                  000090f3    000000f3     pwm.obj (.text)
+                  000091e6    000000d4     adc.obj (.text)
+                  000092ba    000000a4     qep.obj (.text)
+                  0000935e    00000083     rts2800_fpu32.lib : fd_mpy.obj (.text)
+                  000093e1    00000072     init.obj (.text)
+                  00009453    00000056     rts2800_fpu32.lib : boot.obj (.text)
+                  000094a9    00000046                       : cpy_tbl.obj (.text)
+                  000094ef    0000002e     main.obj (.text)
+                  0000951d    00000029     rts2800_fpu32.lib : exit.obj (.text)
+                  00009546    0000001f                       : fd_tol.obj (.text)
+                  00009565    0000001d                       : i_tofd.obj (.text)
+                  00009582    0000001a                       : cpy_utils.obj (.text)
+                  0000959c    00000019                       : args_main.obj (.text)
+                  000095b5    00000017     adc.obj (.text:retain)
+                  000095cc    00000017     rts2800_fpu32.lib : u_tofd.obj (.text)
+                  000095e3    00000016                       : ul_tofd.obj (.text)
+                  000095f9    00000009                       : _lock.obj (.text)
+                  00009602    00000008     DSP2833x_CodeStartBranch.obj (.text)
+                  0000960a    00000002     rts2800_fpu32.lib : pre_init.obj (.text)
+                  0000960c    00000001                       : startup.obj (.text)
 
 .pinit     0    00008000    00000000     UNINITIALIZED
+
+IQmath     0    0000960d    00000047     
+                  0000960d    00000047     IQmath_fpu32.lib : IQ18div.obj (IQmath)
+
+IQmathTables 
+*          0    003fe000    00000b50     NOLOAD SECTION
+                  003fe000    00000b50     IQmath_fpu32.lib : IQmathTables.obj (IQmathTables)
 
 .stack     1    00000400    00000300     UNINITIALIZED
                   00000400    00000300     --HOLE--
 
-.ebss      1    0000c000    00000048     UNINITIALIZED
+.ebss      1    0000c000    00000056     UNINITIALIZED
                   0000c000    0000002c     kom.obj (.ebss)
                   0000c02c    00000010     adc.obj (.ebss)
                   0000c03c    00000002     rts2800_fpu32.lib : _lock.obj (.ebss:__lock)
                   0000c03e    00000002                       : _lock.obj (.ebss:__unlock)
-                  0000c040    00000006                       : exit.obj (.ebss)
-                  0000c046    00000001     main.obj (.ebss)
-                  0000c047    00000001     pwm.obj (.ebss)
+                  0000c040    0000000e     qep.obj (.ebss)
+                  0000c04e    00000006     rts2800_fpu32.lib : exit.obj (.ebss)
+                  0000c054    00000001     main.obj (.ebss)
+                  0000c055    00000001     pwm.obj (.ebss)
 
-.econst    1    0000d000    00000004     
+.econst    1    0000d000    00000008     
                   0000d000    00000004     kom.obj (.econst)
+                  0000d004    00000004     qep.obj (.econst)
 
 .reset     0    003fffc0    00000002     DSECT
                   003fffc0    00000002     rts2800_fpu32.lib : boot.obj (.reset)
@@ -364,12 +376,19 @@ MODULE SUMMARY
        Total:                            56     0         2684   
                                                                  
     .\sdu_source\
-       kom.obj                           241    0         58     
+       kom.obj                           243    0         58     
        adc.obj                           235    0         56     
        pwm.obj                           243    0         5      
+       qep.obj                           164    0         18     
        init.obj                          114    0         0      
     +--+---------------------------------+------+---------+---------+
-       Total:                            833    0         119    
+       Total:                            999    0         137    
+                                                                 
+    ../IQmath_fpu32.lib
+       IQmathTables.obj                  0      0         2896   
+       IQ18div.obj                       71     0         0      
+    +--+---------------------------------+------+---------+---------+
+       Total:                            71     0         2896   
                                                                  
     C:\ti\ccsv6\tools\compiler\c2000_15.12.3.LTS\lib\rts2800_fpu32.lib
        fd_mpy.obj                        131    0         0      
@@ -381,14 +400,16 @@ MODULE SUMMARY
        cpy_utils.obj                     26     0         0      
        args_main.obj                     25     0         0      
        _lock.obj                         9      0         14     
+       u_tofd.obj                        23     0         0      
+       ul_tofd.obj                       22     0         0      
        pre_init.obj                      2      0         0      
        startup.obj                       1      0         0      
     +--+---------------------------------+------+---------+---------+
-       Total:                            451    0         34     
+       Total:                            496    0         34     
                                                                  
        Stack:                            0      0         768    
     +--+---------------------------------+------+---------+---------+
-       Grand Total:                      1340   0         3605   
+       Grand Total:                      1622   0         6519   
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -483,8 +504,8 @@ address     data page           name
 
 00007900     1e4 (00007900)     _I2caRegs
 
-0000c000     300 (0000c000)     _w
-0000c002     300 (0000c000)     _omega
+0000c000     300 (0000c000)     _omega
+0000c002     300 (0000c000)     _w
 0000c004     300 (0000c000)     _kom_buffer
 0000c00e     300 (0000c000)     _msg
 0000c02c     300 (0000c000)     _Ifb_U
@@ -498,15 +519,84 @@ address     data page           name
 0000c03c     300 (0000c000)     __lock
 0000c03e     300 (0000c000)     __unlock
 
-0000c040     301 (0000c040)     ___TI_enable_exit_profile_output
-0000c042     301 (0000c040)     ___TI_cleanup_ptr
-0000c044     301 (0000c040)     ___TI_dtors_ptr
-0000c046     301 (0000c040)     _a
-0000c047     301 (0000c040)     _pwm_z
+0000c040     301 (0000c040)     _test_1
+0000c042     301 (0000c040)     _rpm_low
+0000c044     301 (0000c040)     _test_2
+0000c046     301 (0000c040)     _spd
+0000c048     301 (0000c040)     _test_3
+0000c04a     301 (0000c040)     _test_4
+0000c04c     301 (0000c040)     _rpm_high
+0000c04e     301 (0000c040)     ___TI_enable_exit_profile_output
+0000c050     301 (0000c040)     ___TI_cleanup_ptr
+0000c052     301 (0000c040)     ___TI_dtors_ptr
+0000c054     301 (0000c040)     _a
+0000c055     301 (0000c040)     _pwm_z
 
 0033fff8    cfff (0033ffc0)     _CsmPwl
 
 00380090    e002 (00380080)     _PartIdRegs
+
+003fe000    ff80 (003fe000)     _IQsinTable
+
+003fe100    ff84 (003fe100)     _IQcosTable
+
+003fe400    ff90 (003fe400)     _IQsinTableEnd
+
+003fe502    ff94 (003fe500)     _IQcosTableEnd
+003fe502    ff94 (003fe500)     _IQdivRoundSatTable
+003fe510    ff94 (003fe500)     _IQdivTable
+
+003fe712    ff9c (003fe700)     _IQdivTableEnd
+003fe712    ff9c (003fe700)     _IQisqrtRoundSatTable
+003fe712    ff9c (003fe700)     _IQsqrtRoundSatTable
+003fe722    ff9c (003fe700)     _IQisqrtTable
+003fe722    ff9c (003fe700)     _IQsqrtTable
+
+003fe824    ffa0 (003fe800)     _IQatan2HalfPITable
+003fe824    ffa0 (003fe800)     _IQisqrtTableEnd
+003fe824    ffa0 (003fe800)     _IQsqrtTableEnd
+
+003fe862    ffa1 (003fe840)     _IQatan2Table
+
+003fe9e8    ffa7 (003fe9c0)     _IQ30mpyRndSatTable
+003fe9e8    ffa7 (003fe9c0)     _IQatan2TableEnd
+003fe9e8    ffa7 (003fe9c0)     _IQmpyRndSatTable
+003fe9f4    ffa7 (003fe9c0)     _IQ29mpyRndSatTable
+
+003fea00    ffa8 (003fea00)     _IQ28mpyRndSatTable
+003fea0c    ffa8 (003fea00)     _IQ27mpyRndSatTable
+003fea18    ffa8 (003fea00)     _IQ26mpyRndSatTable
+003fea24    ffa8 (003fea00)     _IQ25mpyRndSatTable
+003fea30    ffa8 (003fea00)     _IQ24mpyRndSatTable
+003fea3c    ffa8 (003fea00)     _IQ23mpyRndSatTable
+
+003fea48    ffa9 (003fea40)     _IQ22mpyRndSatTable
+003fea54    ffa9 (003fea40)     _IQ21mpyRndSatTable
+003fea60    ffa9 (003fea40)     _IQ20mpyRndSatTable
+003fea6c    ffa9 (003fea40)     _IQ19mpyRndSatTable
+003fea78    ffa9 (003fea40)     _IQ18mpyRndSatTable
+
+003fea84    ffaa (003fea80)     _IQ17mpyRndSatTable
+003fea90    ffaa (003fea80)     _IQ16mpyRndSatTable
+003fea9c    ffaa (003fea80)     _IQ15mpyRndSatTable
+003feaa8    ffaa (003fea80)     _IQ14mpyRndSatTable
+003feab4    ffaa (003fea80)     _IQ13mpyRndSatTable
+
+003feac0    ffab (003feac0)     _IQ12mpyRndSatTable
+003feacc    ffab (003feac0)     _IQ11mpyRndSatTable
+003fead8    ffab (003feac0)     _IQ10mpyRndSatTable
+003feae4    ffab (003feac0)     _IQ9mpyRndSatTable
+003feaf0    ffab (003feac0)     _IQ8mpyRndSatTable
+003feafc    ffab (003feac0)     _IQ7mpyRndSatTable
+
+003feb08    ffac (003feb00)     _IQ6mpyRndSatTable
+003feb14    ffac (003feb00)     _IQ5mpyRndSatTable
+003feb20    ffac (003feb00)     _IQ4mpyRndSatTable
+003feb2c    ffac (003feb00)     _IQ3mpyRndSatTable
+003feb38    ffac (003feb00)     _IQ2mpyRndSatTable
+
+003feb44    ffad (003feb40)     _IQ1mpyRndSatTable
+003feb50    ffad (003feb40)     _IQmpyRndSatTableEnd
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -514,10 +604,12 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                            
 ----  -------   ----                            
 0     00009000  .text                           
-0     00009477  C$$EXIT                         
-0     000092b8  FD$$MPY                         
-0     000094a0  FD$$TOL                         
-0     000094bf  I$$TOFD                         
+0     0000951d  C$$EXIT                         
+0     0000935e  FD$$MPY                         
+0     00009546  FD$$TOL                         
+0     00009565  I$$TOFD                         
+0     000095cc  U$$TOFD                         
+0     000095e3  UL$$TOFD                        
 1     00000b00  _AdcMirror                      
 1     00007100  _AdcRegs                        
 1     00000c00  _CpuTimer0Regs                  
@@ -556,6 +648,54 @@ page  address   name
 1     00006fc0  _GpioDataRegs                   
 1     00006fe0  _GpioIntRegs                    
 1     00007900  _I2caRegs                       
+0     003fead8  _IQ10mpyRndSatTable             
+0     003feacc  _IQ11mpyRndSatTable             
+0     003feac0  _IQ12mpyRndSatTable             
+0     003feab4  _IQ13mpyRndSatTable             
+0     003feaa8  _IQ14mpyRndSatTable             
+0     003fea9c  _IQ15mpyRndSatTable             
+0     003fea90  _IQ16mpyRndSatTable             
+0     003fea84  _IQ17mpyRndSatTable             
+0     003fea78  _IQ18mpyRndSatTable             
+0     003fea6c  _IQ19mpyRndSatTable             
+0     003feb44  _IQ1mpyRndSatTable              
+0     003fea60  _IQ20mpyRndSatTable             
+0     003fea54  _IQ21mpyRndSatTable             
+0     003fea48  _IQ22mpyRndSatTable             
+0     003fea3c  _IQ23mpyRndSatTable             
+0     003fea30  _IQ24mpyRndSatTable             
+0     003fea24  _IQ25mpyRndSatTable             
+0     003fea18  _IQ26mpyRndSatTable             
+0     003fea0c  _IQ27mpyRndSatTable             
+0     003fea00  _IQ28mpyRndSatTable             
+0     003fe9f4  _IQ29mpyRndSatTable             
+0     003feb38  _IQ2mpyRndSatTable              
+0     003fe9e8  _IQ30mpyRndSatTable             
+0     003feb2c  _IQ3mpyRndSatTable              
+0     003feb20  _IQ4mpyRndSatTable              
+0     003feb14  _IQ5mpyRndSatTable              
+0     003feb08  _IQ6mpyRndSatTable              
+0     003feafc  _IQ7mpyRndSatTable              
+0     003feaf0  _IQ8mpyRndSatTable              
+0     003feae4  _IQ9mpyRndSatTable              
+0     003fe824  _IQatan2HalfPITable             
+0     003fe862  _IQatan2Table                   
+0     003fe9e8  _IQatan2TableEnd                
+0     003fe100  _IQcosTable                     
+0     003fe502  _IQcosTableEnd                  
+0     003fe502  _IQdivRoundSatTable             
+0     003fe510  _IQdivTable                     
+0     003fe712  _IQdivTableEnd                  
+0     003fe712  _IQisqrtRoundSatTable           
+0     003fe722  _IQisqrtTable                   
+0     003fe824  _IQisqrtTableEnd                
+0     003fe9e8  _IQmpyRndSatTable               
+0     003feb50  _IQmpyRndSatTableEnd            
+0     003fe000  _IQsinTable                     
+0     003fe400  _IQsinTableEnd                  
+0     003fe712  _IQsqrtRoundSatTable            
+0     003fe722  _IQsqrtTable                    
+0     003fe824  _IQsqrtTableEnd                 
 1     0000c02e  _Ifb_Ret                        
 1     0000c038  _Ifb_Ret_offset                 
 1     0000c02c  _Ifb_U                          
@@ -567,8 +707,8 @@ page  address   name
 1     00380090  _PartIdRegs                     
 1     00000ce0  _PieCtrlRegs                    
 1     00000d00  _PieVectTable                   
-0     000091d1  _SCIA_Poruka                    
-0     000091c5  _SCIA_Slanje                    
+0     000090e0  _SCIA_Poruka                    
+0     000090d4  _SCIA_Slanje                    
 1     00007050  _SciaRegs                       
 1     00007750  _ScibRegs                       
 1     00007770  _ScicRegs                       
@@ -578,65 +718,75 @@ page  address   name
 1     0000c036  _Vfb_Bus_offset                 
 1     00007070  _XIntruptRegs                   
 1     00000b20  _XintfRegs                      
+0     0000960d  __IQ18div                       
 1     00000700  __STACK_END                     
 abs   00000300  __STACK_SIZE                    
-1     0000c042  ___TI_cleanup_ptr               
-1     0000c044  ___TI_dtors_ptr                 
-1     0000c040  ___TI_enable_exit_profile_output
+1     0000c050  ___TI_cleanup_ptr               
+1     0000c052  ___TI_dtors_ptr                 
+1     0000c04e  ___TI_enable_exit_profile_output
 abs   ffffffff  ___TI_pprof_out_hndl            
 abs   ffffffff  ___TI_prof_data_size            
 abs   ffffffff  ___TI_prof_data_start           
 abs   ffffffff  ___binit__                      
 abs   ffffffff  ___c_args__                     
 0     00008000  ___cinit__                      
-0     0000953a  ___etext__                      
+0     0000960d  ___etext__                      
 abs   ffffffff  ___pinit__                      
 0     00009000  ___text__                       
-0     000094f6  __args_main                     
+0     0000959c  __args_main                     
 1     0000c03c  __lock                          
-0     0000952e  __nop                           
-0     0000952a  __register_lock                 
-0     00009526  __register_unlock               
+0     00009601  __nop                           
+0     000095fd  __register_lock                 
+0     000095f9  __register_unlock               
 1     00000400  __stack                         
-0     00009539  __system_post_cinit             
-0     00009537  __system_pre_init               
+0     0000960c  __system_post_cinit             
+0     0000960a  __system_pre_init               
 1     0000c03e  __unlock                        
-1     0000c046  _a                              
-0     00009477  _abort                          
-0     00009232  _adc_loop                       
-0     000091e4  _adc_setup                      
-0     000093ad  _c_int00                        
-0     00009403  _copy_in                        
-0     000094dc  _ddcopy                         
-0     0000937a  _delay_loop                     
-0     000094dc  _dpcopy                         
-0     00009340  _dsp_clock_setup                
-0     00009353  _dsp_flash_setup                
-0     00009479  _exit                           
-0     0000933b  _fun_1                          
-0     00009280  _fun_offset_adc                 
-0     0000950f  _int_rut                        
-0     0000924b  _interrupt_setup_adc            
+1     0000c054  _a                              
+0     0000951d  _abort                          
+0     00009234  _adc_loop                       
+0     000091e6  _adc_setup                      
+0     00009453  _c_int00                        
+0     000094a9  _copy_in                        
+0     00009582  _ddcopy                         
+0     00009420  _delay_loop                     
+0     00009582  _dpcopy                         
+0     000093e6  _dsp_clock_setup                
+0     000093f9  _dsp_flash_setup                
+0     0000951f  _exit                           
+0     000093e1  _fun_1                          
+0     00009282  _fun_offset_adc                 
+0     000095b5  _int_rut                        
+0     0000924d  _interrupt_setup_adc            
 1     0000c004  _kom_buffer                     
-0     0000913c  _kom_loop                       
-0     000090f3  _kom_setup                      
-0     00009449  _main                           
+0     0000904b  _kom_loop                       
+0     00009000  _kom_setup                      
+0     000094ef  _main                           
 1     0000c00e  _msg                            
-1     0000c002  _omega                          
-0     000094dc  _pdcopy                         
-0     000094dc  _ppcopy                         
-0     000090e6  _pwm_loop                       
-0     00009000  _pwm_setup                      
-1     0000c047  _pwm_z                          
-0     000093a6  _test_prog_1_loop               
-0     0000938e  _test_prog_1_setup              
-1     0000c000  _w                              
-0     00009370  _watchdog_timer_reset           
-0     00009368  _watchdog_timer_setup           
+1     0000c000  _omega                          
+0     00009582  _pdcopy                         
+0     00009582  _ppcopy                         
+0     000091d9  _pwm_loop                       
+0     000090f3  _pwm_setup                      
+1     0000c055  _pwm_z                          
+0     000092f2  _qep_loop                       
+0     000092ba  _qep_setup                      
+1     0000c04c  _rpm_high                       
+1     0000c042  _rpm_low                        
+1     0000c046  _spd                            
+1     0000c040  _test_1                         
+1     0000c044  _test_2                         
+1     0000c048  _test_3                         
+1     0000c04a  _test_4                         
+0     0000944c  _test_prog_1_loop               
+0     00009434  _test_prog_1_setup              
+1     0000c002  _w                              
+0     00009416  _watchdog_timer_reset           
+0     0000940e  _watchdog_timer_setup           
 abs   ffffffff  binit                           
 0     00008000  cinit                           
 0     00000000  code_start                      
-0     0000953a  etext                           
+0     0000960d  etext                           
 abs   ffffffff  pinit                           
 
 
@@ -649,46 +799,99 @@ page  address   name
 0     00008000  cinit                           
 0     00009000  .text                           
 0     00009000  ___text__                       
-0     00009000  _pwm_setup                      
-0     000090e6  _pwm_loop                       
-0     000090f3  _kom_setup                      
-0     0000913c  _kom_loop                       
-0     000091c5  _SCIA_Slanje                    
-0     000091d1  _SCIA_Poruka                    
-0     000091e4  _adc_setup                      
-0     00009232  _adc_loop                       
-0     0000924b  _interrupt_setup_adc            
-0     00009280  _fun_offset_adc                 
-0     000092b8  FD$$MPY                         
-0     0000933b  _fun_1                          
-0     00009340  _dsp_clock_setup                
-0     00009353  _dsp_flash_setup                
-0     00009368  _watchdog_timer_setup           
-0     00009370  _watchdog_timer_reset           
-0     0000937a  _delay_loop                     
-0     0000938e  _test_prog_1_setup              
-0     000093a6  _test_prog_1_loop               
-0     000093ad  _c_int00                        
-0     00009403  _copy_in                        
-0     00009449  _main                           
-0     00009477  C$$EXIT                         
-0     00009477  _abort                          
-0     00009479  _exit                           
-0     000094a0  FD$$TOL                         
-0     000094bf  I$$TOFD                         
-0     000094dc  _ddcopy                         
-0     000094dc  _dpcopy                         
-0     000094dc  _pdcopy                         
-0     000094dc  _ppcopy                         
-0     000094f6  __args_main                     
-0     0000950f  _int_rut                        
-0     00009526  __register_unlock               
-0     0000952a  __register_lock                 
-0     0000952e  __nop                           
-0     00009537  __system_pre_init               
-0     00009539  __system_post_cinit             
-0     0000953a  ___etext__                      
-0     0000953a  etext                           
+0     00009000  _kom_setup                      
+0     0000904b  _kom_loop                       
+0     000090d4  _SCIA_Slanje                    
+0     000090e0  _SCIA_Poruka                    
+0     000090f3  _pwm_setup                      
+0     000091d9  _pwm_loop                       
+0     000091e6  _adc_setup                      
+0     00009234  _adc_loop                       
+0     0000924d  _interrupt_setup_adc            
+0     00009282  _fun_offset_adc                 
+0     000092ba  _qep_setup                      
+0     000092f2  _qep_loop                       
+0     0000935e  FD$$MPY                         
+0     000093e1  _fun_1                          
+0     000093e6  _dsp_clock_setup                
+0     000093f9  _dsp_flash_setup                
+0     0000940e  _watchdog_timer_setup           
+0     00009416  _watchdog_timer_reset           
+0     00009420  _delay_loop                     
+0     00009434  _test_prog_1_setup              
+0     0000944c  _test_prog_1_loop               
+0     00009453  _c_int00                        
+0     000094a9  _copy_in                        
+0     000094ef  _main                           
+0     0000951d  C$$EXIT                         
+0     0000951d  _abort                          
+0     0000951f  _exit                           
+0     00009546  FD$$TOL                         
+0     00009565  I$$TOFD                         
+0     00009582  _ddcopy                         
+0     00009582  _dpcopy                         
+0     00009582  _pdcopy                         
+0     00009582  _ppcopy                         
+0     0000959c  __args_main                     
+0     000095b5  _int_rut                        
+0     000095cc  U$$TOFD                         
+0     000095e3  UL$$TOFD                        
+0     000095f9  __register_unlock               
+0     000095fd  __register_lock                 
+0     00009601  __nop                           
+0     0000960a  __system_pre_init               
+0     0000960c  __system_post_cinit             
+0     0000960d  __IQ18div                       
+0     0000960d  ___etext__                      
+0     0000960d  etext                           
+0     003fe000  _IQsinTable                     
+0     003fe100  _IQcosTable                     
+0     003fe400  _IQsinTableEnd                  
+0     003fe502  _IQcosTableEnd                  
+0     003fe502  _IQdivRoundSatTable             
+0     003fe510  _IQdivTable                     
+0     003fe712  _IQdivTableEnd                  
+0     003fe712  _IQisqrtRoundSatTable           
+0     003fe712  _IQsqrtRoundSatTable            
+0     003fe722  _IQisqrtTable                   
+0     003fe722  _IQsqrtTable                    
+0     003fe824  _IQatan2HalfPITable             
+0     003fe824  _IQisqrtTableEnd                
+0     003fe824  _IQsqrtTableEnd                 
+0     003fe862  _IQatan2Table                   
+0     003fe9e8  _IQ30mpyRndSatTable             
+0     003fe9e8  _IQatan2TableEnd                
+0     003fe9e8  _IQmpyRndSatTable               
+0     003fe9f4  _IQ29mpyRndSatTable             
+0     003fea00  _IQ28mpyRndSatTable             
+0     003fea0c  _IQ27mpyRndSatTable             
+0     003fea18  _IQ26mpyRndSatTable             
+0     003fea24  _IQ25mpyRndSatTable             
+0     003fea30  _IQ24mpyRndSatTable             
+0     003fea3c  _IQ23mpyRndSatTable             
+0     003fea48  _IQ22mpyRndSatTable             
+0     003fea54  _IQ21mpyRndSatTable             
+0     003fea60  _IQ20mpyRndSatTable             
+0     003fea6c  _IQ19mpyRndSatTable             
+0     003fea78  _IQ18mpyRndSatTable             
+0     003fea84  _IQ17mpyRndSatTable             
+0     003fea90  _IQ16mpyRndSatTable             
+0     003fea9c  _IQ15mpyRndSatTable             
+0     003feaa8  _IQ14mpyRndSatTable             
+0     003feab4  _IQ13mpyRndSatTable             
+0     003feac0  _IQ12mpyRndSatTable             
+0     003feacc  _IQ11mpyRndSatTable             
+0     003fead8  _IQ10mpyRndSatTable             
+0     003feae4  _IQ9mpyRndSatTable              
+0     003feaf0  _IQ8mpyRndSatTable              
+0     003feafc  _IQ7mpyRndSatTable              
+0     003feb08  _IQ6mpyRndSatTable              
+0     003feb14  _IQ5mpyRndSatTable              
+0     003feb20  _IQ4mpyRndSatTable              
+0     003feb2c  _IQ3mpyRndSatTable              
+0     003feb38  _IQ2mpyRndSatTable              
+0     003feb44  _IQ1mpyRndSatTable              
+0     003feb50  _IQmpyRndSatTableEnd            
 1     00000400  __stack                         
 1     00000700  __STACK_END                     
 1     00000880  _DevEmuRegs                     
@@ -739,8 +942,8 @@ page  address   name
 1     00007750  _ScibRegs                       
 1     00007770  _ScicRegs                       
 1     00007900  _I2caRegs                       
-1     0000c000  _w                              
-1     0000c002  _omega                          
+1     0000c000  _omega                          
+1     0000c002  _w                              
 1     0000c004  _kom_buffer                     
 1     0000c00e  _msg                            
 1     0000c02c  _Ifb_U                          
@@ -753,11 +956,18 @@ page  address   name
 1     0000c03a  _Ifb_U_offset                   
 1     0000c03c  __lock                          
 1     0000c03e  __unlock                        
-1     0000c040  ___TI_enable_exit_profile_output
-1     0000c042  ___TI_cleanup_ptr               
-1     0000c044  ___TI_dtors_ptr                 
-1     0000c046  _a                              
-1     0000c047  _pwm_z                          
+1     0000c040  _test_1                         
+1     0000c042  _rpm_low                        
+1     0000c044  _test_2                         
+1     0000c046  _spd                            
+1     0000c048  _test_3                         
+1     0000c04a  _test_4                         
+1     0000c04c  _rpm_high                       
+1     0000c04e  ___TI_enable_exit_profile_output
+1     0000c050  ___TI_cleanup_ptr               
+1     0000c052  ___TI_dtors_ptr                 
+1     0000c054  _a                              
+1     0000c055  _pwm_z                          
 1     0033fff8  _CsmPwl                         
 1     00380090  _PartIdRegs                     
 abs   00000300  __STACK_SIZE                    
@@ -770,4 +980,4 @@ abs   ffffffff  ___pinit__
 abs   ffffffff  binit                           
 abs   ffffffff  pinit                           
 
-[125 symbols]
+[185 symbols]

@@ -22,6 +22,8 @@ _iq omega;
  */
 void kom_setup(void)
 {
+	watchdog_timer_reset();
+
 	EALLOW;
 	//SysCtrlRegs.WDCR=0x0068;
 	SysCtrlRegs.PCLKCR0.bit.SCIAENCLK=1;	// prosljedi takt na komunikaciju
@@ -113,22 +115,25 @@ void kom_loop(void)
 }
 
 /*
- * ph.
+ * Problematiène funkcije.
  * Funkcije za slanje i pakiranje poruke
  */
 void SCIA_Slanje(int b)
 {
-	while(SciaRegs.SCIFFTX.bit.TXFFST != 0) {}
+	while(SciaRegs.SCIFFTX.bit.TXFFST != 0)
+	{
+		//watchdog_timer_reset()
+	}
     SciaRegs.SCITXBUF=b;
 }
 
 void SCIA_Poruka(char *msg)
 {
-	int i;
-	    i = 0;
-	    while(msg[i] != '\0')
-	    {
-	        SCIA_Slanje(msg[i]);
-	        i++;
-	    }
+	int i = 0;
+	while(msg[i] != '\0')
+	{
+		//watchdog_timer_reset()
+		SCIA_Slanje(msg[i]);
+		i++;
+	}
 }
