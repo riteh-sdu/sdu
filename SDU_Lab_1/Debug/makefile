@@ -10,11 +10,22 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./DSP2833x_ADC_cal.obj" \
+"./DSP2833x_Adc.obj" \
 "./DSP2833x_CodeStartBranch.obj" \
+"./DSP2833x_CpuTimers.obj" \
+"./DSP2833x_DefaultIsr.obj" \
 "./DSP2833x_GlobalVariableDefs.obj" \
-"./SDU_lab_2_1_priprema_2017_2018.obj" \
+"./DSP2833x_PieCtrl.obj" \
+"./DSP2833x_PieVect.obj" \
+"./DSP2833x_SysCtrl.obj" \
+"./DSP2833x_usDelay.obj" \
+"./Display_ADC.obj" \
+"./eQEP.obj" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/cmd/28335_RAM_lnk.cmd" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd" \
+"../IQmath.lib" \
+"../IQmath_fpu32.lib" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -139,10 +150,10 @@ BIN_OUTPUTS__QUOTED += \
 all: SDU_Lab_1.out
 
 # Tool invocations
-SDU_Lab_1.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+SDU_Lab_1.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --display_error_number --diag_warning=225 --diag_wrap=off -z -m"SDU_Lab_1.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="SDU_Lab_1_linkInfo.xml" --rom_model -o "SDU_Lab_1.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=softlib -g --display_error_number --diag_warning=225 --diag_wrap=off -z -m"SDU_Lab_1.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="SDU_Lab_1_linkInfo.xml" --rom_model -o "SDU_Lab_1.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -155,9 +166,9 @@ SDU_Lab_1.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "DSP2833x_GlobalVariableDefs.d" "SDU_lab_2_1_priprema_2017_2018.d" 
-	-$(RM) "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "SDU_lab_2_1_priprema_2017_2018.obj" 
-	-$(RM) "DSP2833x_CodeStartBranch.d" 
+	-$(RM) "DSP2833x_Adc.d" "DSP2833x_CpuTimers.d" "DSP2833x_DefaultIsr.d" "DSP2833x_GlobalVariableDefs.d" "DSP2833x_PieCtrl.d" "DSP2833x_PieVect.d" "DSP2833x_SysCtrl.d" "Display_ADC.d" "eQEP.d" 
+	-$(RM) "DSP2833x_ADC_cal.obj" "DSP2833x_Adc.obj" "DSP2833x_CodeStartBranch.obj" "DSP2833x_CpuTimers.obj" "DSP2833x_DefaultIsr.obj" "DSP2833x_GlobalVariableDefs.obj" "DSP2833x_PieCtrl.obj" "DSP2833x_PieVect.obj" "DSP2833x_SysCtrl.obj" "DSP2833x_usDelay.obj" "Display_ADC.obj" "eQEP.obj" 
+	-$(RM) "DSP2833x_ADC_cal.d" "DSP2833x_CodeStartBranch.d" "DSP2833x_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
