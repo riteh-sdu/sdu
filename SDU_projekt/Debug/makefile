@@ -15,6 +15,7 @@ ORDERED_OBJS += \
 "./main.obj" \
 "./sdu_source/adc.obj" \
 "./sdu_source/init.obj" \
+"./sdu_source/kom.obj" \
 "./sdu_source/pwm.obj" \
 "../28335_RAM_lnk.cmd" \
 "C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/cmd/DSP2833x_Headers_nonBIOS.cmd" \
@@ -161,8 +162,8 @@ SDU_projekt.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "DSP2833x_GlobalVariableDefs.d" "main.d" "sdu_source\adc.d" "sdu_source\init.d" "sdu_source\pwm.d" 
-	-$(RM) "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "main.obj" "sdu_source\adc.obj" "sdu_source\init.obj" "sdu_source\pwm.obj" 
+	-$(RM) "DSP2833x_GlobalVariableDefs.d" "main.d" "sdu_source\adc.d" "sdu_source\init.d" "sdu_source\kom.d" "sdu_source\pwm.d" 
+	-$(RM) "DSP2833x_CodeStartBranch.obj" "DSP2833x_GlobalVariableDefs.obj" "main.obj" "sdu_source\adc.obj" "sdu_source\init.obj" "sdu_source\kom.obj" "sdu_source\pwm.obj" 
 	-$(RM) "DSP2833x_CodeStartBranch.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

@@ -8,10 +8,12 @@
 #include "sdu_headers/init.h"
 #include "sdu_headers/adc.h"
 #include "sdu_headers/pwm.h"
+#include "sdu_headers/kom.h"
 
 #define GLOBAL_Q 18
 
 int a = 1;
+
 
 //_iq b=0, c=0, rez=0, zer=0;
 
@@ -23,6 +25,7 @@ int main(void)
 	adc_setup();
 	interrupt_setup_adc();
 	pwm_setup();
+	kom_setup();
 
 	test_prog_1_setup();		// Deklariranje pinova kao izlazi. (Testni program.)
 
@@ -47,6 +50,7 @@ int main(void)
 
 		adc_loop();
 		pwm_loop();
+		kom_loop();
 
 		a = a + a;
 	}

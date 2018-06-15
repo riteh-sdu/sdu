@@ -25,6 +25,7 @@ main.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h
 main.obj: ../sdu_headers/init.h
 main.obj: ../sdu_headers/adc.h
 main.obj: ../sdu_headers/pwm.h
+main.obj: ../sdu_headers/kom.h
 
 ../main.c: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Device.h: 
@@ -51,3 +52,4 @@ C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h:
 ../sdu_headers/init.h: 
 ../sdu_headers/adc.h: 
 ../sdu_headers/pwm.h: 
+../sdu_headers/kom.h: 
