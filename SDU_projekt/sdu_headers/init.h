@@ -23,6 +23,9 @@ void delay_loop(long);
 void test_prog_1_setup(void);
 void test_prog_1_loop(void);
 
+void test_prog_2_setup(void);
+void test_prog_2_loop(void);
+
 
 #endif /* SDU_MAIN_INIT_H_ */
 

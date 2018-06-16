@@ -39,11 +39,8 @@ int main(void)
 
 	while (1)
 	{
-		a = a + a;
 		watchdog_timer_reset();
 		test_prog_1_loop();
-
-		a = a + a;
 
 		adc_loop();
 		pwm_loop();
@@ -55,9 +52,6 @@ int main(void)
 		//kom_loop();
 
 		qep_loop();
-
-
-		a = a + a;
 	}
 
 	return 0;

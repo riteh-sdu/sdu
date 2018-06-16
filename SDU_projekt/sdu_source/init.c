@@ -91,6 +91,30 @@ void test_prog_1_setup(void)
 }
 
 /*
+ * Deklariranje pinova kao izlazi. (Testni program.)
+ */
+void test_prog_2_setup(void)
+{
+	EALLOW;
+	GpioCtrlRegs.GPAMUX1.bit.GPIO9 = 0;
+	GpioCtrlRegs.GPADIR.bit.GPIO9 = 1;
+	GpioDataRegs.GPASET.bit.GPIO9 = 1;
+
+	GpioCtrlRegs.GPAMUX1.bit.GPIO11 = 0;
+	GpioCtrlRegs.GPADIR.bit.GPIO11 = 1;
+	GpioDataRegs.GPASET.bit.GPIO11 = 0;
+
+	GpioCtrlRegs.GPBMUX1.bit.GPIO34 = 0;
+	GpioCtrlRegs.GPBDIR.bit.GPIO34 = 1;
+	GpioDataRegs.GPBSET.bit.GPIO34 = 1;
+
+	GpioCtrlRegs.GPBMUX2.bit.GPIO49 = 0;
+	GpioCtrlRegs.GPBDIR.bit.GPIO49 = 1;
+	GpioDataRegs.GPBSET.bit.GPIO49 = 0;
+	EDIS;
+}
+
+/*
  * Naizmjenicno treperenje svjetlecih dioda spojenih na prva dva pina.
  * (GPI09 i GPIO11)
  * (Testni program.)
@@ -102,7 +126,19 @@ void test_prog_1_loop(void)
 	GpioDataRegs.GPATOGGLE.bit.GPIO11 = 1;
 }
 
-
+/*
+ * Naizmjenicno treperenje svjetlecih dioda.
+ * PH(GPI09 i GPIO11)
+ * (Testni program.)
+ */
+void test_prog_2_loop(void)
+{
+	delay_loop(1000000);
+	GpioDataRegs.GPATOGGLE.bit.GPIO9 = 1;
+	GpioDataRegs.GPATOGGLE.bit.GPIO11 = 1;
+	GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+	GpioDataRegs.GPBTOGGLE.bit.GPIO49 = 1;
+}
 
 
 
