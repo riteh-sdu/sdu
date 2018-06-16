@@ -20,7 +20,8 @@ SDU_lab_2_1_priprema_2017_2018.obj: C:/ti/controlSUITE/device_support/f2833x/v14
 SDU_lab_2_1_priprema_2017_2018.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_SysCtrl.h
 SDU_lab_2_1_priprema_2017_2018.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h
 SDU_lab_2_1_priprema_2017_2018.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h
-SDU_lab_2_1_priprema_2017_2018.obj: ../SDU_main_init.h
+SDU_lab_2_1_priprema_2017_2018.obj: ../IQmathLib.h
+SDU_lab_2_1_priprema_2017_2018.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h
 
 ../SDU_lab_2_1_priprema_2017_2018.c: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Device.h: 
@@ -42,4 +43,5 @@ C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_SysCtrl.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_XIntrupt.h: 
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h: 
-../SDU_main_init.h: 
+../IQmathLib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h: 
