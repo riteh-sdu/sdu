@@ -24,6 +24,7 @@ void adc_setup(void);
 void adc_loop(void);
 
 void interrupt_setup_adc(void);
+void interrupt_setup_adc_2(void);
 interrupt void int_rut(void);
 
 void fun_offset_adc(void);

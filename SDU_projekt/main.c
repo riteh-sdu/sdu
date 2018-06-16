@@ -25,7 +25,7 @@ int main(void)
 	dsp_clock_setup();			// Podesavanje takta dsp-a.
 	watchdog_timer_setup();		// Omogucavanje Watchdog timer-a.
 	adc_setup();
-	interrupt_setup_adc();
+	interrupt_setup_adc_2();
 	pwm_setup();
 	kom_setup();
 	qep_setup();
@@ -33,7 +33,7 @@ int main(void)
 	test_prog_1_setup();		// Deklariranje pinova kao izlazi. (Testni program.)
 
 	a = fun_1(a);
-	//fun_offset_adc();
+	fun_offset_adc();
 
 	a = a + a;
 
@@ -49,9 +49,10 @@ int main(void)
 		 *  Po meni bi trebalo napisat kod ki ne koristi u sebi beskonaènu petlju.
 		 *  Jer ako se (ne šalje/ ne prima) poruka progrm zaglavi i watchdog resetira dsp.
 		 */
-		//kom_loop();
+		kom_loop();
 
 		qep_loop();
+		delay_loop(1000000);
 	}
 
 	return 0;

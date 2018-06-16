@@ -69,6 +69,8 @@ _iq16 zbroj_I_V = _IQ(0);									// brojnik za MV filtar struje faze V
  * Funkcija ka se poziva u prekidnoj rutini adc-a.
  */
 void pr2_interrupt(void){
+	watchdog_timer_reset();
+
 	// Bufferi 							------------------------------------------------------
 
 	// Buffer za napon

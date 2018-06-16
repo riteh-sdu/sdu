@@ -46,6 +46,8 @@ void dsp_flash_setup(void)
 void watchdog_timer_setup(void)
 {
 	EALLOW;
+	//SysCtrlRegs.WDCR = 0b000000001101111;
+	//SysCtrlRegs.WDCR = 0x00DF;	//onemogucen wd
 	SysCtrlRegs.WDCR = 0x00AF;
 	EDIS;
 }

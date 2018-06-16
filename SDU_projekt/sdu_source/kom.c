@@ -111,18 +111,17 @@ void kom_loop(void)
 	}
 
 	SCIA_Poruka(msg);                  //	Slanje poruke Herculesu
-	delay_loop(10000000);
+	//delay_loop(10000000);
 }
 
 /*
- * Problematiène funkcije.
  * Funkcije za slanje i pakiranje poruke
  */
 void SCIA_Slanje(int b)
 {
 	while(SciaRegs.SCIFFTX.bit.TXFFST != 0)
 	{
-		//watchdog_timer_reset()
+		watchdog_timer_reset();
 	}
     SciaRegs.SCITXBUF=b;
 }
@@ -132,7 +131,7 @@ void SCIA_Poruka(char *msg)
 	int i = 0;
 	while(msg[i] != '\0')
 	{
-		//watchdog_timer_reset()
+		watchdog_timer_reset();
 		SCIA_Slanje(msg[i]);
 		i++;
 	}

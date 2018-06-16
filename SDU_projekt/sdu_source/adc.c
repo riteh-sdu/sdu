@@ -84,6 +84,8 @@ void adc_loop(void)
 
 /*
  * Funkcija za podešavanje prekida. (adc)
+ * Interrupt-i nisu dobro podešeni i to dovodi do restartiranja dsp-a.
+ * Ne koristit.
  */
 void interrupt_setup_adc(void)
 {
@@ -130,6 +132,31 @@ void interrupt_setup_adc(void)
     EINT;                                   // Enable control – interrupts (EINT)
     ERTM;                                   // Enable debug – interrupts (ERTM)
     EDIS;
+}
+
+/*
+ * Alternativni setup za interrapti.
+ * Ne dovodi do resetiranja dsp-a.
+ * Ispravnost ispravne funkcionalnosti se još mora testirat.
+ * (Prema debugging alatu pokreæe se prekidna rutina.)
+ */
+void interrupt_setup_adc_2(void)
+{
+	watchdog_timer_reset();
+    DINT;		// Onemoguci prekide
+
+	EALLOW;
+	PieVectTable.SEQ1INT = &int_rut;  // prekidna rutina prv_isr
+	EDIS;
+
+	PieCtrlRegs.PIECTRL.bit.ENPIE = 1; // omoguci pie jedinicu
+	PieCtrlRegs.PIEIER1.bit.INTx1 = 1; // xint1 na seq1int
+
+	IER |= 0x0001;
+
+    EINT;		// Omoguci prekide
+    ERTM;
+
 }
 
 /*
