@@ -9,6 +9,7 @@
 
 #include "../sdu_headers/init.h"
 #include "../sdu_headers/adc.h"
+#include "../sdu_headers/pr2.h"
 
 unsigned long Ifb_Ret = 0;
 unsigned long Ifb_U = 0;
@@ -136,6 +137,8 @@ void interrupt_setup_adc(void)
  */
 interrupt void int_rut(void)
 {
+	pr2_interrupt();						// Druga prekidna rutina.
+
     AdcRegs.ADCST.bit.INT_SEQ1_CLR = 1;     // Clear Interrupt Flag ADC Sequencer 1
     AdcRegs.ADCTRL2.bit.RST_SEQ1 = 0b1;     // Immediate reset SEQ1 to "initial state"
     PieCtrlRegs.PIEACK.bit.ACK1 = 1; 		// PIE Interrupt Acknowledge Register

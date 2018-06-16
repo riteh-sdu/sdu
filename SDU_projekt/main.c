@@ -10,6 +10,7 @@
 #include "sdu_headers/pwm.h"
 #include "sdu_headers/kom.h"
 #include "sdu_headers/qep.h"
+#include "sdu_headers/pr2.h"
 
 #define GLOBAL_Q 18
 
