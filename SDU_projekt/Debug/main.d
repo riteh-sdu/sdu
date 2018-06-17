@@ -27,6 +27,7 @@ main.obj: ../sdu_headers/adc.h
 main.obj: ../sdu_headers/pwm.h
 main.obj: ../sdu_headers/kom.h
 main.obj: ../sdu_headers/qep.h
+main.obj: ../sdu_headers/pr1.h
 main.obj: ../sdu_headers/pr2.h
 
 ../main.c: 
@@ -56,4 +57,5 @@ C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h:
 ../sdu_headers/pwm.h: 
 ../sdu_headers/kom.h: 
 ../sdu_headers/qep.h: 
+../sdu_headers/pr1.h: 
 ../sdu_headers/pr2.h: 

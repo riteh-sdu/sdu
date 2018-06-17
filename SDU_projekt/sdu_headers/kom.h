@@ -12,6 +12,11 @@
 extern char msg[30];
 extern int state;
 
+#include "../IQmathLib.h"
+extern _iq kom_buffer[5];
+extern _iq w;
+extern _iq omega;
+
 // deklaracija globalnih funkcija
 void kom_setup(void);
 void kom_loop(void);

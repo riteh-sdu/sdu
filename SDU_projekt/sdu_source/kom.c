@@ -13,9 +13,13 @@
 
 char msg[30]={'o','m','e','g','a','\n','\0'};
 
-_iq kom_buffer[5];
-_iq w;
-_iq omega;
+//_iq kom_buffer[5];
+//_iq w;
+//_iq omega;
+
+long kom_buffer[5];
+long w;
+long omega;
 
 /*
  * Funkcija za podešavanje komunikacije.

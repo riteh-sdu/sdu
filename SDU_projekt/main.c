@@ -10,48 +10,42 @@
 #include "sdu_headers/pwm.h"
 #include "sdu_headers/kom.h"
 #include "sdu_headers/qep.h"
+#include "sdu_headers/pr1.h"
 #include "sdu_headers/pr2.h"
 
 #define GLOBAL_Q 18
 
-int a = 1;
-
-
-//_iq b=0, c=0, rez=0, zer=0;
-
 int main(void)
 {
-	//dsp_flash_setup();			// Nerabi palit ako se ne vrti zi fleša
-	dsp_clock_setup();			// Podesavanje takta dsp-a.
 	watchdog_timer_setup();		// Omogucavanje Watchdog timer-a.
+	dsp_clock_setup();			// Podesavanje takta dsp-a.
+	dsp_flash_setup();			// Nerabi palit ako se ne vrti zi fleša
+
+	pwm_setup();
 	adc_setup();
 	interrupt_setup_adc_2();
-	pwm_setup();
-	kom_setup();
+	pr1_setup();
 	qep_setup();
+	kom_setup();
 
-	test_prog_1_setup();		// Deklariranje pinova kao izlazi. (Testni program.)
-
-	a = fun_1(a);
 	fun_offset_adc();
 
-	a = a + a;
+	test_prog_1_setup();		// Deklariranje pinova kao izlazi. (Testni program.)
 
 	while (1)
 	{
 		watchdog_timer_reset();
 		test_prog_1_loop();
 
-		adc_loop();
 		pwm_loop();
+		adc_loop();
+		qep_loop();
 
-		/*
-		 *  Po meni bi trebalo napisat kod ki ne koristi u sebi beskonaènu petlju.
-		 *  Jer ako se (ne šalje/ ne prima) poruka progrm zaglavi i watchdog resetira dsp.
-		 */
+		pr1_loop();
+
 		kom_loop();
 
-		qep_loop();
+
 		delay_loop(1000000);
 	}
 
