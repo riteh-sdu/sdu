@@ -13,13 +13,13 @@
 
 char msg[30]={'o','m','e','g','a','\n','\0'};
 
-//_iq kom_buffer[5];
-//_iq w;
-//_iq omega;
+_iq kom_buffer[5];
+_iq w;
+_iq omega;
 
-long kom_buffer[5];
-long w;
-long omega;
+//long kom_buffer[5];
+//long w;
+//long omega;
 
 /*
  * Funkcija za podešavanje komunikacije.
@@ -28,17 +28,17 @@ void kom_setup(void)
 {
 	watchdog_timer_reset();
 
-	EALLOW;
+	//EALLOW;
 	//SysCtrlRegs.WDCR=0x0068;
-	SysCtrlRegs.PCLKCR0.bit.SCIAENCLK=1;	// prosljedi takt na komunikaciju
-	EDIS;
+	//SysCtrlRegs.PCLKCR0.bit.SCIAENCLK=1;	// prosljedi takt na komunikaciju
+	//EDIS;
 
 	EALLOW;
-	GpioCtrlRegs.GPAMUX2.all=0x0000;
-	GpioCtrlRegs.GPAMUX2.bit.GPIO28=0b1;
-	GpioCtrlRegs.GPAMUX2.bit.GPIO29=0b1;
-	GpioCtrlRegs.GPADIR.bit.GPIO28=0;
-	GpioCtrlRegs.GPADIR.bit.GPIO29=1;
+	//GpioCtrlRegs.GPAMUX2.all=0x0000;
+	//GpioCtrlRegs.GPAMUX2.bit.GPIO28=0b1;
+	//GpioCtrlRegs.GPAMUX2.bit.GPIO29=0b1;
+	//GpioCtrlRegs.GPADIR.bit.GPIO28=0;
+	//GpioCtrlRegs.GPADIR.bit.GPIO29=1;
 
 	SciaRegs.SCICCR.bit.PARITY=0; 			//	ODD
 	SciaRegs.SCICCR.bit.PARITYENA=1;
@@ -79,6 +79,8 @@ void kom_loop(void)
 {
 	int z = 0;
 	int a = 0;
+
+	watchdog_timer_reset();
 
 	if(SciaRegs.SCIFFRX.bit.RXFFST>4)
 	{
@@ -123,9 +125,10 @@ void kom_loop(void)
  */
 void SCIA_Slanje(int b)
 {
+	watchdog_timer_reset();
 	while(SciaRegs.SCIFFTX.bit.TXFFST != 0)
 	{
-		watchdog_timer_reset();
+
 	}
     SciaRegs.SCITXBUF=b;
 }
@@ -133,9 +136,11 @@ void SCIA_Slanje(int b)
 void SCIA_Poruka(char *msg)
 {
 	int i = 0;
+
+	watchdog_timer_reset();
+
 	while(msg[i] != '\0')
 	{
-		watchdog_timer_reset();
 		SCIA_Slanje(msg[i]);
 		i++;
 	}

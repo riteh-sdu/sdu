@@ -77,6 +77,8 @@ void adc_setup(void)
  */
 void adc_loop(void)
 {
+	watchdog_timer_reset();
+
     Ifb_Ret = AdcMirror.ADCRESULT0;
     Ifb_U = AdcMirror.ADCRESULT1;
     Ifb_V = AdcMirror.ADCRESULT3;
@@ -137,7 +139,7 @@ void interrupt_setup_adc(void)
 
 /*
  * Alternativni setup za interrapti.
- * Ne dovodi do resetiranja dsp-a.
+ * Ne dovodi do resetiranja dsp-a. (To je dobra stvar).
  * Ispravnost ispravne funkcionalnosti se još mora testirat.
  * (Prema debugging alatu pokreæe se prekidna rutina.)
  */

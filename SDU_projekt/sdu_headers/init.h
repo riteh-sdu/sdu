@@ -15,6 +15,7 @@ int fun_1(int);
 
 void dsp_clock_setup(void);
 void dsp_flash_setup(void);
+void dsp_muxio_setup(void);
 void watchdog_timer_setup(void);
 void watchdog_timer_reset(void);
 

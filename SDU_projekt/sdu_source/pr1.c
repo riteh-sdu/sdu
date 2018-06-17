@@ -13,11 +13,11 @@
 #include "../sdu_headers/pr1.h"
 #include "../sdu_headers/kom.h"
 
-_iq sum;
-_iq un;
-_iq ws;
-_iq wpids;
-_iq wpid;
+_iq sum = _IQ(0);
+_iq un = _IQ(0);
+_iq ws = _IQ(0);
+_iq wpids = _IQ(0);
+_iq wpid = _IQ(0);
 
 /*
  * Funkcija za podešavanje pr1.
@@ -30,6 +30,8 @@ void pr1_setup(void)
 
 	// Omogucavanje Watchdog timer-a.
 	//WATCHDOG_TIMER_SETUP;
+
+	watchdog_timer_reset();
 
 	sum=_IQ(0);//da suma bude 0 postaviti u nekoj pocetnoj petlji
 	wpids=_IQ(0);
@@ -98,5 +100,5 @@ void pr1_loop(void)
  */
 void pr1_interrupt(void)
 {
-
+	watchdog_timer_reset();
 }

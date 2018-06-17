@@ -21,6 +21,8 @@ int main(void)
 	dsp_clock_setup();			// Podesavanje takta dsp-a.
 	dsp_flash_setup();			// Nerabi palit ako se ne vrti zi fleša
 
+	dsp_muxio_setup();
+
 	pwm_setup();
 	adc_setup();
 	interrupt_setup_adc_2();
