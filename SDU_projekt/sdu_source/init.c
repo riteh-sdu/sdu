@@ -56,6 +56,11 @@ void dsp_clock_setup(void)
 	SysCtrlRegs.HISPCP.bit.HSPCLK = 0; 		// Skaliranje frekvencije takta koji dolazi na adc jedinicu. (f / 1)
 	SysCtrlRegs.PCLKCR0.bit.ADCENCLK = 1; 	// Omoguæi dovod sistemskog takta na adc jedinicu.
 
+	//qep
+	SysCtrlRegs.PCLKCR1.bit.EQEP1ENCLK = 1;  // eQEP1
+	SysCtrlRegs.PCLKCR1.bit.EQEP2ENCLK = 1; // eQEP2
+
+
 	// kom
 	SysCtrlRegs.PCLKCR0.bit.SCIAENCLK=1;	// prosljedi takt na komunikaciju
 	EDIS;
