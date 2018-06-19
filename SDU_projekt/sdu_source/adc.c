@@ -9,6 +9,7 @@
 
 #include "../sdu_headers/init.h"
 #include "../sdu_headers/adc.h"
+#include "../sdu_headers/qep.h"
 #include "../sdu_headers/pr1.h"
 #include "../sdu_headers/pr2.h"
 
@@ -166,6 +167,8 @@ interrupt void int_rut(void)
     Ifb_U = AdcMirror.ADCRESULT1;
     Ifb_V = AdcMirror.ADCRESULT3;
     Vfb_Bus = AdcMirror.ADCRESULT4;
+
+    qep_read();
 
 	pr1_interrupt();						// Regulacija brzine vrtnje.
 	pr2_interrupt();						// Zaštita.

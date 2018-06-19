@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v15.12.3                    
 ******************************************************************************
->> Linked Tue Jun 19 14:35:22 2018
+>> Linked Tue Jun 19 15:34:35 2018
 
 OUTPUT FILE NAME:   <SDU_projekt.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 00009821
+ENTRY POINT SYMBOL: "_c_int00"  address: 000097ea
 
 
 MEMORY CONFIGURATION
@@ -14,8 +14,8 @@ MEMORY CONFIGURATION
 PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
   RAMM0                 00000050   000003b0  00000000  000003b0  RWIX
-  RAML0                 00008000   00001000  0000012d  00000ed3  RWIX
-  RAML1                 00009000   00001000  00000ab9  00000547  RWIX
+  RAML0                 00008000   00001000  0000013c  00000ec4  RWIX
+  RAML1                 00009000   00001000  00000a5d  000005a3  RWIX
   RAML2                 0000a000   00001000  00000000  00001000  RWIX
   RAML3                 0000b000   00001000  00000000  00001000  RWIX
   ZONE7A                00200000   0000fc00  00000000  0000fc00  RWIX
@@ -79,8 +79,8 @@ PAGE 1:
   SCIB                  00007750   00000010  00000010  00000000  RWIX
   SCIC                  00007770   00000010  00000010  00000000  RWIX
   I2CA                  00007900   00000040  00000022  0000001e  RWIX
-  RAML4                 0000c000   00001000  000000c0  00000f40  RWIX
-  RAML5                 0000d000   00001000  00000010  00000ff0  RWIX
+  RAML4                 0000c000   00001000  000000c6  00000f3a  RWIX
+  RAML5                 0000d000   00001000  0000000c  00000ff4  RWIX
   RAML6                 0000e000   00001000  00000000  00001000  RWIX
   RAML7                 0000f000   00001000  00000000  00001000  RWIX
   ZONE7B                0020fc00   00000400  00000000  00000400  RWIX
@@ -97,48 +97,47 @@ codestart
 *          0    00000000    00000002     
                   00000000    00000002     DSP2833x_CodeStartBranch.obj (codestart)
 
-.cinit     0    00008000    0000012d     
+.cinit     0    00008000    0000013c     
                   00008000    000000c8     pr2.obj (.cinit)
                   000080c8    00000028     adc.obj (.cinit)
-                  000080f0    00000019     pr1.obj (.cinit)
-                  00008109    0000000e     rts2800_fpu32.lib : exit.obj (.cinit)
-                  00008117    0000000a     kom.obj (.cinit)
-                  00008121    00000005     rts2800_fpu32.lib : _lock.obj (.cinit:__lock)
-                  00008126    00000005                       : _lock.obj (.cinit:__unlock)
-                  0000812b    00000002     --HOLE-- [fill = 0]
+                  000080f0    00000028     pr1.obj (.cinit)
+                  00008118    0000000e     rts2800_fpu32.lib : exit.obj (.cinit)
+                  00008126    0000000a     kom.obj (.cinit)
+                  00008130    00000005     rts2800_fpu32.lib : _lock.obj (.cinit:__lock)
+                  00008135    00000005                       : _lock.obj (.cinit:__unlock)
+                  0000813a    00000002     --HOLE-- [fill = 0]
 
-.text      0    00009000    00000a2b     
+.text      0    00009000    000009cf     
                   00009000    0000025a     pr2.obj (.text)
-                  0000925a    0000014f     pr1.obj (.text)
-                  000093a9    000000ff     init.obj (.text)
-                  000094a8    000000dc     kom.obj (.text)
-                  00009584    000000d4     adc.obj (.text)
-                  00009658    000000b5     pwm.obj (.text)
-                  0000970d    00000091     qep.obj (.text)
-                  0000979e    00000083     rts2800_fpu32.lib : fd_mpy.obj (.text)
-                  00009821    00000056                       : boot.obj (.text)
-                  00009877    00000051     adc.obj (.text:retain)
-                  000098c8    00000046     rts2800_fpu32.lib : cpy_tbl.obj (.text)
-                  0000990e    00000029                       : exit.obj (.text)
-                  00009937    00000028     main.obj (.text)
-                  0000995f    0000001f     rts2800_fpu32.lib : fd_tol.obj (.text)
-                  0000997e    0000001d                       : i_tofd.obj (.text)
-                  0000999b    0000001c                       : l_tofd.obj (.text)
-                  000099b7    0000001a                       : cpy_utils.obj (.text)
-                  000099d1    00000019                       : args_main.obj (.text)
-                  000099ea    00000017                       : u_tofd.obj (.text)
-                  00009a01    00000016                       : ul_tofd.obj (.text)
-                  00009a17    00000009                       : _lock.obj (.text)
-                  00009a20    00000008     DSP2833x_CodeStartBranch.obj (.text)
-                  00009a28    00000002     rts2800_fpu32.lib : pre_init.obj (.text)
-                  00009a2a    00000001                       : startup.obj (.text)
+                  0000925a    0000011b     pr1.obj (.text)
+                  00009375    000000ff     init.obj (.text)
+                  00009474    000000dc     kom.obj (.text)
+                  00009550    000000d4     adc.obj (.text)
+                  00009624    000000b5     pwm.obj (.text)
+                  000096d9    0000008e     qep.obj (.text)
+                  00009767    00000083     rts2800_fpu32.lib : fd_mpy.obj (.text)
+                  000097ea    00000056                       : boot.obj (.text)
+                  00009840    00000053     adc.obj (.text:retain)
+                  00009893    00000046     rts2800_fpu32.lib : cpy_tbl.obj (.text)
+                  000098d9    00000029                       : exit.obj (.text)
+                  00009902    0000001f                       : fd_tol.obj (.text)
+                  00009921    0000001d     main.obj (.text)
+                  0000993e    0000001d     rts2800_fpu32.lib : i_tofd.obj (.text)
+                  0000995b    0000001a                       : cpy_utils.obj (.text)
+                  00009975    00000019                       : args_main.obj (.text)
+                  0000998e    00000017                       : u_tofd.obj (.text)
+                  000099a5    00000016                       : ul_tofd.obj (.text)
+                  000099bb    00000009                       : _lock.obj (.text)
+                  000099c4    00000008     DSP2833x_CodeStartBranch.obj (.text)
+                  000099cc    00000002     rts2800_fpu32.lib : pre_init.obj (.text)
+                  000099ce    00000001                       : startup.obj (.text)
 
 .pinit     0    00008000    00000000     UNINITIALIZED
 
-IQmath     0    00009a2b    0000008e     
-                  00009a2b    00000047     IQmath_fpu32.lib : IQ18div.obj (IQmath)
-                  00009a72    00000031                      : IQ18sin.obj (IQmath)
-                  00009aa3    00000016                      : IQ18toF.obj (IQmath)
+IQmath     0    000099cf    0000008e     
+                  000099cf    00000047     IQmath_fpu32.lib : IQ18div.obj (IQmath)
+                  00009a16    00000031                      : IQ18sin.obj (IQmath)
+                  00009a47    00000016                      : IQ18toF.obj (IQmath)
 
 IQmathTables 
 *          0    003fe000    00000b50     NOLOAD SECTION
@@ -147,21 +146,21 @@ IQmathTables
 .stack     1    00000400    00000300     UNINITIALIZED
                   00000400    00000300     --HOLE--
 
-.ebss      1    0000c000    000000c0     UNINITIALIZED
+.ebss      1    0000c000    000000c6     UNINITIALIZED
                   0000c000    00000062     pr2.obj (.ebss)
                   0000c062    00000010     adc.obj (.ebss)
-                  0000c072    0000000e     qep.obj (.ebss)
+                  0000c072    0000000a     qep.obj (.ebss)
+                  0000c07c    00000002     rts2800_fpu32.lib : _lock.obj (.ebss:__lock)
+                  0000c07e    00000002                       : _lock.obj (.ebss:__unlock)
                   0000c080    0000002c     kom.obj (.ebss)
-                  0000c0ac    0000000a     pr1.obj (.ebss)
-                  0000c0b6    00000006     rts2800_fpu32.lib : exit.obj (.ebss)
-                  0000c0bc    00000002                       : _lock.obj (.ebss:__lock)
-                  0000c0be    00000002                       : _lock.obj (.ebss:__unlock)
+                  0000c0ac    00000010     pr1.obj (.ebss)
+                  0000c0bc    00000004     --HOLE--
+                  0000c0c0    00000006     rts2800_fpu32.lib : exit.obj (.ebss)
 
-.econst    1    0000d000    00000010     
+.econst    1    0000d000    0000000c     
                   0000d000    00000004     kom.obj (.econst)
-                  0000d004    00000004     pr1.obj (.econst)
-                  0000d008    00000004     pr2.obj (.econst)
-                  0000d00c    00000004     qep.obj (.econst)
+                  0000d004    00000004     pr2.obj (.econst)
+                  0000d008    00000004     qep.obj (.econst)
 
 .reset     0    003fffc0    00000002     DSECT
                   003fffc0    00000002     rts2800_fpu32.lib : boot.obj (.reset)
@@ -377,21 +376,21 @@ MODULE SUMMARY
        ------                            ----   -------   -------
     .\
        DSP2833x_GlobalVariableDefs.obj   0      0         2679   
-       main.obj                          40     0         0      
+       main.obj                          29     0         0      
        DSP2833x_CodeStartBranch.obj      10     0         0      
     +--+---------------------------------+------+---------+---------+
-       Total:                            50     0         2679   
+       Total:                            39     0         2679   
                                                                  
     .\sdu_source\
        pr2.obj                           602    0         302    
-       pr1.obj                           335    0         39     
-       adc.obj                           293    0         56     
+       adc.obj                           295    0         56     
+       pr1.obj                           283    0         56     
        kom.obj                           220    0         58     
        init.obj                          255    0         0      
        pwm.obj                           181    0         0      
-       qep.obj                           145    0         18     
+       qep.obj                           142    0         14     
     +--+---------------------------------+------+---------+---------+
-       Total:                            2031   0         473    
+       Total:                            1978   0         486    
                                                                  
     ../IQmath_fpu32.lib
        IQmathTables.obj                  0      0         2896   
@@ -408,7 +407,6 @@ MODULE SUMMARY
        exit.obj                          41     0         20     
        fd_tol.obj                        31     0         0      
        i_tofd.obj                        29     0         0      
-       l_tofd.obj                        28     0         0      
        cpy_utils.obj                     26     0         0      
        args_main.obj                     25     0         0      
        _lock.obj                         9      0         14     
@@ -417,11 +415,11 @@ MODULE SUMMARY
        pre_init.obj                      2      0         0      
        startup.obj                       1      0         0      
     +--+---------------------------------+------+---------+---------+
-       Total:                            524    0         34     
+       Total:                            496    0         34     
                                                                  
        Stack:                            0      0         768    
     +--+---------------------------------+------+---------+---------+
-       Grand Total:                      2747   0         6850   
+       Grand Total:                      2655   0         6863   
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -566,13 +564,13 @@ address     data page           name
 0000c06c     301 (0000c040)     _Ifb_V_offset
 0000c06e     301 (0000c040)     _Ifb_Ret
 0000c070     301 (0000c040)     _Vfb_Bus_offset
-0000c072     301 (0000c040)     _test_2
-0000c074     301 (0000c040)     _test_1
-0000c076     301 (0000c040)     _spd
+0000c072     301 (0000c040)     _rpm_low
+0000c074     301 (0000c040)     _rpm_high
+0000c076     301 (0000c040)     _test_1
 0000c078     301 (0000c040)     _test_3
-0000c07a     301 (0000c040)     _test_4
-0000c07c     301 (0000c040)     _rpm_low
-0000c07e     301 (0000c040)     _rpm_high
+0000c07a     301 (0000c040)     _spd
+0000c07c     301 (0000c040)     __lock
+0000c07e     301 (0000c040)     __unlock
 
 0000c080     302 (0000c080)     _w
 0000c082     302 (0000c080)     _omega
@@ -581,13 +579,15 @@ address     data page           name
 0000c0ac     302 (0000c080)     _ws
 0000c0ae     302 (0000c080)     _wpids
 0000c0b0     302 (0000c080)     _sum
-0000c0b2     302 (0000c080)     _wpid
-0000c0b4     302 (0000c080)     _un
-0000c0b6     302 (0000c080)     ___TI_enable_exit_profile_output
-0000c0b8     302 (0000c080)     ___TI_cleanup_ptr
-0000c0ba     302 (0000c080)     ___TI_dtors_ptr
-0000c0bc     302 (0000c080)     __lock
-0000c0be     302 (0000c080)     __unlock
+0000c0b2     302 (0000c080)     _un
+0000c0b4     302 (0000c080)     _wt
+0000c0b6     302 (0000c080)     _wpid
+0000c0b8     302 (0000c080)     _ww
+0000c0ba     302 (0000c080)     _dw
+
+0000c0c0     303 (0000c0c0)     ___TI_enable_exit_profile_output
+0000c0c2     303 (0000c0c0)     ___TI_cleanup_ptr
+0000c0c4     303 (0000c0c0)     ___TI_dtors_ptr
 
 0033fff8    cfff (0033ffc0)     _CsmPwl
 
@@ -661,13 +661,12 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                            
 ----  -------   ----                            
 0     00009000  .text                           
-0     0000990e  C$$EXIT                         
-0     0000979e  FD$$MPY                         
-0     0000995f  FD$$TOL                         
-0     0000997e  I$$TOFD                         
-0     0000999b  L$$TOFD                         
-0     000099ea  U$$TOFD                         
-0     00009a01  UL$$TOFD                        
+0     000098d9  C$$EXIT                         
+0     00009767  FD$$MPY                         
+0     00009902  FD$$TOL                         
+0     0000993e  I$$TOFD                         
+0     0000998e  U$$TOFD                         
+0     000099a5  UL$$TOFD                        
 1     00000b00  _AdcMirror                      
 1     00007100  _AdcRegs                        
 1     0000c05a  _Buffer_I_U                     
@@ -779,8 +778,8 @@ page  address   name
 1     00380090  _PartIdRegs                     
 1     00000ce0  _PieCtrlRegs                    
 1     00000d00  _PieVectTable                   
-0     0000956f  _SCIA_Poruka                    
-0     00009561  _SCIA_Slanje                    
+0     0000953b  _SCIA_Poruka                    
+0     0000952d  _SCIA_Slanje                    
 1     00007050  _SciaRegs                       
 1     00007750  _ScibRegs                       
 1     00007770  _ScicRegs                       
@@ -795,46 +794,47 @@ page  address   name
 1     0000c070  _Vfb_Bus_offset                 
 1     00007070  _XIntruptRegs                   
 1     00000b20  _XintfRegs                      
-0     00009a2b  __IQ18div                       
-0     00009a72  __IQ18sin                       
-0     00009aa3  __IQ18toF                       
+0     000099cf  __IQ18div                       
+0     00009a16  __IQ18sin                       
+0     00009a47  __IQ18toF                       
 1     00000700  __STACK_END                     
 abs   00000300  __STACK_SIZE                    
-1     0000c0b8  ___TI_cleanup_ptr               
-1     0000c0ba  ___TI_dtors_ptr                 
-1     0000c0b6  ___TI_enable_exit_profile_output
+1     0000c0c2  ___TI_cleanup_ptr               
+1     0000c0c4  ___TI_dtors_ptr                 
+1     0000c0c0  ___TI_enable_exit_profile_output
 abs   ffffffff  ___TI_pprof_out_hndl            
 abs   ffffffff  ___TI_prof_data_size            
 abs   ffffffff  ___TI_prof_data_start           
 abs   ffffffff  ___binit__                      
 abs   ffffffff  ___c_args__                     
 0     00008000  ___cinit__                      
-0     00009a2b  ___etext__                      
+0     000099cf  ___etext__                      
 abs   ffffffff  ___pinit__                      
 0     00009000  ___text__                       
-0     000099d1  __args_main                     
-1     0000c0bc  __lock                          
-0     00009a1f  __nop                           
-0     00009a1b  __register_lock                 
-0     00009a17  __register_unlock               
+0     00009975  __args_main                     
+1     0000c07c  __lock                          
+0     000099c3  __nop                           
+0     000099bf  __register_lock                 
+0     000099bb  __register_unlock               
 1     00000400  __stack                         
-0     00009a2a  __system_post_cinit             
-0     00009a28  __system_pre_init               
-1     0000c0be  __unlock                        
-0     0000990e  _abort                          
-0     000095d2  _adc_loop                       
-0     00009584  _adc_setup                      
-0     00009821  _c_int00                        
-0     000098c8  _copy_in                        
-0     000099b7  _ddcopy                         
-0     00009439  _delay_loop                     
-0     000099b7  _dpcopy                         
-0     000093c0  _dsp_clock_setup                
-0     000093dd  _dsp_flash_setup                
-0     000093f4  _dsp_muxio_setup                
-0     00009910  _exit                           
-0     000093a9  _fun_1                          
-0     00009620  _fun_offset_adc                 
+0     000099ce  __system_post_cinit             
+0     000099cc  __system_pre_init               
+1     0000c07e  __unlock                        
+0     000098d9  _abort                          
+0     0000959e  _adc_loop                       
+0     00009550  _adc_setup                      
+0     000097ea  _c_int00                        
+0     00009893  _copy_in                        
+0     0000995b  _ddcopy                         
+0     00009405  _delay_loop                     
+0     0000995b  _dpcopy                         
+0     0000938c  _dsp_clock_setup                
+0     000093a9  _dsp_flash_setup                
+0     000093c0  _dsp_muxio_setup                
+1     0000c0ba  _dw                             
+0     000098db  _exit                           
+0     00009375  _fun_1                          
+0     000095ec  _fun_offset_adc                 
 1     0000c032  _i_NN                           
 1     0000c034  _i_VN                           
 1     0000c036  _i_mz_U                         
@@ -843,32 +843,29 @@ abs   ffffffff  ___pinit__
 1     0000c02a  _i_vz_U                         
 1     0000c02e  _i_vz_V                         
 1     0000c02c  _i_vz_pov                       
-0     00009877  _int_rut                        
-0     000095d5  _interrupt_setup_adc            
-0     0000960a  _interrupt_setup_adc_2          
+0     00009840  _int_rut                        
+0     000095a1  _interrupt_setup_adc            
+0     000095d6  _interrupt_setup_adc_2          
 1     0000c084  _kom_buffer                     
-0     000094db  _kom_loop                       
-0     000094a8  _kom_setup                      
-0     00009937  _main                           
+0     000094a7  _kom_loop                       
+0     00009474  _kom_setup                      
+0     00009921  _main                           
 1     0000c08e  _msg                            
 1     0000c082  _omega                          
-0     000099b7  _pdcopy                         
-0     000099b7  _ppcopy                         
-0     000093a6  _pr1_interrupt                  
-0     00009262  _pr1_loop                       
+0     0000995b  _pdcopy                         
+0     0000995b  _ppcopy                         
+0     00009262  _pr1_interrupt                  
 0     0000925a  _pr1_setup                      
 0     00009000  _pr2_interrupt                  
-0     00009658  _pwm_setup                      
-0     00009732  _qep_loop                       
-0     0000970d  _qep_setup                      
-1     0000c07e  _rpm_high                       
-1     0000c07c  _rpm_low                        
-1     0000c076  _spd                            
+0     00009624  _pwm_setup                      
+0     000096fb  _qep_read                       
+0     000096d9  _qep_setup                      
+1     0000c074  _rpm_high                       
+1     0000c072  _rpm_low                        
+1     0000c07a  _spd                            
 1     0000c0b0  _sum                            
-1     0000c074  _test_1                         
-1     0000c072  _test_2                         
+1     0000c076  _test_1                         
 1     0000c078  _test_3                         
-1     0000c07a  _test_4                         
 1     0000c000  _test_Imz_U                     
 1     0000c001  _test_Imz_V                     
 1     0000c006  _test_Imz_pov                   
@@ -877,19 +874,21 @@ abs   ffffffff  ___pinit__
 1     0000c005  _test_Ivz_pov                   
 1     0000c003  _test_MN                        
 1     0000c002  _test_VN                        
-0     00009491  _test_prog_1_loop               
-0     0000944d  _test_prog_1_setup              
-0     00009498  _test_prog_2_loop               
-0     00009465  _test_prog_2_setup              
-1     0000c0b4  _un                             
+0     0000945d  _test_prog_1_loop               
+0     00009419  _test_prog_1_setup              
+0     00009464  _test_prog_2_loop               
+0     00009431  _test_prog_2_setup              
+1     0000c0b2  _un                             
 1     0000c040  _vrijeme_NN                     
 1     0000c03c  _vrijeme_VN                     
 1     0000c080  _w                              
-0     000093b6  _watchdog_timer_reset           
-0     000093ae  _watchdog_timer_setup           
-1     0000c0b2  _wpid                           
+0     00009382  _watchdog_timer_reset           
+0     0000937a  _watchdog_timer_setup           
+1     0000c0b6  _wpid                           
 1     0000c0ae  _wpids                          
 1     0000c0ac  _ws                             
+1     0000c0b4  _wt                             
+1     0000c0b8  _ww                             
 1     0000c01c  _zbroj_I_U                      
 1     0000c020  _zbroj_I_V                      
 1     0000c01e  _zbroj_I_pov                    
@@ -897,7 +896,7 @@ abs   ffffffff  ___pinit__
 abs   ffffffff  binit                           
 0     00008000  cinit                           
 0     00000000  code_start                      
-0     00009a2b  etext                           
+0     000099cf  etext                           
 abs   ffffffff  pinit                           
 
 
@@ -912,59 +911,57 @@ page  address   name
 0     00009000  ___text__                       
 0     00009000  _pr2_interrupt                  
 0     0000925a  _pr1_setup                      
-0     00009262  _pr1_loop                       
-0     000093a6  _pr1_interrupt                  
-0     000093a9  _fun_1                          
-0     000093ae  _watchdog_timer_setup           
-0     000093b6  _watchdog_timer_reset           
-0     000093c0  _dsp_clock_setup                
-0     000093dd  _dsp_flash_setup                
-0     000093f4  _dsp_muxio_setup                
-0     00009439  _delay_loop                     
-0     0000944d  _test_prog_1_setup              
-0     00009465  _test_prog_2_setup              
-0     00009491  _test_prog_1_loop               
-0     00009498  _test_prog_2_loop               
-0     000094a8  _kom_setup                      
-0     000094db  _kom_loop                       
-0     00009561  _SCIA_Slanje                    
-0     0000956f  _SCIA_Poruka                    
-0     00009584  _adc_setup                      
-0     000095d2  _adc_loop                       
-0     000095d5  _interrupt_setup_adc            
-0     0000960a  _interrupt_setup_adc_2          
-0     00009620  _fun_offset_adc                 
-0     00009658  _pwm_setup                      
-0     0000970d  _qep_setup                      
-0     00009732  _qep_loop                       
-0     0000979e  FD$$MPY                         
-0     00009821  _c_int00                        
-0     00009877  _int_rut                        
-0     000098c8  _copy_in                        
-0     0000990e  C$$EXIT                         
-0     0000990e  _abort                          
-0     00009910  _exit                           
-0     00009937  _main                           
-0     0000995f  FD$$TOL                         
-0     0000997e  I$$TOFD                         
-0     0000999b  L$$TOFD                         
-0     000099b7  _ddcopy                         
-0     000099b7  _dpcopy                         
-0     000099b7  _pdcopy                         
-0     000099b7  _ppcopy                         
-0     000099d1  __args_main                     
-0     000099ea  U$$TOFD                         
-0     00009a01  UL$$TOFD                        
-0     00009a17  __register_unlock               
-0     00009a1b  __register_lock                 
-0     00009a1f  __nop                           
-0     00009a28  __system_pre_init               
-0     00009a2a  __system_post_cinit             
-0     00009a2b  __IQ18div                       
-0     00009a2b  ___etext__                      
-0     00009a2b  etext                           
-0     00009a72  __IQ18sin                       
-0     00009aa3  __IQ18toF                       
+0     00009262  _pr1_interrupt                  
+0     00009375  _fun_1                          
+0     0000937a  _watchdog_timer_setup           
+0     00009382  _watchdog_timer_reset           
+0     0000938c  _dsp_clock_setup                
+0     000093a9  _dsp_flash_setup                
+0     000093c0  _dsp_muxio_setup                
+0     00009405  _delay_loop                     
+0     00009419  _test_prog_1_setup              
+0     00009431  _test_prog_2_setup              
+0     0000945d  _test_prog_1_loop               
+0     00009464  _test_prog_2_loop               
+0     00009474  _kom_setup                      
+0     000094a7  _kom_loop                       
+0     0000952d  _SCIA_Slanje                    
+0     0000953b  _SCIA_Poruka                    
+0     00009550  _adc_setup                      
+0     0000959e  _adc_loop                       
+0     000095a1  _interrupt_setup_adc            
+0     000095d6  _interrupt_setup_adc_2          
+0     000095ec  _fun_offset_adc                 
+0     00009624  _pwm_setup                      
+0     000096d9  _qep_setup                      
+0     000096fb  _qep_read                       
+0     00009767  FD$$MPY                         
+0     000097ea  _c_int00                        
+0     00009840  _int_rut                        
+0     00009893  _copy_in                        
+0     000098d9  C$$EXIT                         
+0     000098d9  _abort                          
+0     000098db  _exit                           
+0     00009902  FD$$TOL                         
+0     00009921  _main                           
+0     0000993e  I$$TOFD                         
+0     0000995b  _ddcopy                         
+0     0000995b  _dpcopy                         
+0     0000995b  _pdcopy                         
+0     0000995b  _ppcopy                         
+0     00009975  __args_main                     
+0     0000998e  U$$TOFD                         
+0     000099a5  UL$$TOFD                        
+0     000099bb  __register_unlock               
+0     000099bf  __register_lock                 
+0     000099c3  __nop                           
+0     000099cc  __system_pre_init               
+0     000099ce  __system_post_cinit             
+0     000099cf  __IQ18div                       
+0     000099cf  ___etext__                      
+0     000099cf  etext                           
+0     00009a16  __IQ18sin                       
+0     00009a47  __IQ18toF                       
 0     003fe000  _IQsinTable                     
 0     003fe100  _IQcosTable                     
 0     003fe400  _IQsinTableEnd                  
@@ -1112,13 +1109,13 @@ page  address   name
 1     0000c06c  _Ifb_V_offset                   
 1     0000c06e  _Ifb_Ret                        
 1     0000c070  _Vfb_Bus_offset                 
-1     0000c072  _test_2                         
-1     0000c074  _test_1                         
-1     0000c076  _spd                            
+1     0000c072  _rpm_low                        
+1     0000c074  _rpm_high                       
+1     0000c076  _test_1                         
 1     0000c078  _test_3                         
-1     0000c07a  _test_4                         
-1     0000c07c  _rpm_low                        
-1     0000c07e  _rpm_high                       
+1     0000c07a  _spd                            
+1     0000c07c  __lock                          
+1     0000c07e  __unlock                        
 1     0000c080  _w                              
 1     0000c082  _omega                          
 1     0000c084  _kom_buffer                     
@@ -1126,13 +1123,14 @@ page  address   name
 1     0000c0ac  _ws                             
 1     0000c0ae  _wpids                          
 1     0000c0b0  _sum                            
-1     0000c0b2  _wpid                           
-1     0000c0b4  _un                             
-1     0000c0b6  ___TI_enable_exit_profile_output
-1     0000c0b8  ___TI_cleanup_ptr               
-1     0000c0ba  ___TI_dtors_ptr                 
-1     0000c0bc  __lock                          
-1     0000c0be  __unlock                        
+1     0000c0b2  _un                             
+1     0000c0b4  _wt                             
+1     0000c0b6  _wpid                           
+1     0000c0b8  _ww                             
+1     0000c0ba  _dw                             
+1     0000c0c0  ___TI_enable_exit_profile_output
+1     0000c0c2  ___TI_cleanup_ptr               
+1     0000c0c4  ___TI_dtors_ptr                 
 1     0033fff8  _CsmPwl                         
 1     00380090  _PartIdRegs                     
 abs   00000300  __STACK_SIZE                    
@@ -1145,4 +1143,4 @@ abs   ffffffff  ___pinit__
 abs   ffffffff  binit                           
 abs   ffffffff  pinit                           
 
-[239 symbols]
+[238 symbols]

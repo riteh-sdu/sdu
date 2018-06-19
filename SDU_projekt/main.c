@@ -26,7 +26,6 @@ int main(void)
 	pwm_setup();
 	adc_setup();
 	interrupt_setup_adc_2();
-	pr1_setup();
 	qep_setup();
 	kom_setup();
 
@@ -38,15 +37,10 @@ int main(void)
 	{
 		watchdog_timer_reset();
 		test_prog_1_loop();
-
-		qep_loop();
-
-		pr1_loop();
-
 		kom_loop();
 
 
-		delay_loop(1000000);
+		//delay_loop(1000000);
 	}
 
 	return 0;

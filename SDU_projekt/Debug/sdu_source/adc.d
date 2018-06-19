@@ -22,9 +22,10 @@ sdu_source/adc.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_heade
 sdu_source/adc.obj: C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h
 sdu_source/adc.obj: ../sdu_source/../sdu_headers/init.h
 sdu_source/adc.obj: ../sdu_source/../sdu_headers/adc.h
-sdu_source/adc.obj: ../sdu_source/../sdu_headers/pr1.h
+sdu_source/adc.obj: ../sdu_source/../sdu_headers/qep.h
 sdu_source/adc.obj: ../sdu_source/../sdu_headers/../IQmathLib.h
 sdu_source/adc.obj: C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h
+sdu_source/adc.obj: ../sdu_source/../sdu_headers/pr1.h
 sdu_source/adc.obj: ../sdu_source/../sdu_headers/pr2.h
 
 ../sdu_source/adc.c: 
@@ -49,7 +50,8 @@ C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_
 C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include/DSP2833x_Xintf.h: 
 ../sdu_source/../sdu_headers/init.h: 
 ../sdu_source/../sdu_headers/adc.h: 
-../sdu_source/../sdu_headers/pr1.h: 
+../sdu_source/../sdu_headers/qep.h: 
 ../sdu_source/../sdu_headers/../IQmathLib.h: 
 C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include/limits.h: 
+../sdu_source/../sdu_headers/pr1.h: 
 ../sdu_source/../sdu_headers/pr2.h: 

@@ -14,9 +14,7 @@
 _iq rpm_high;
 _iq rpm_low;
 _iq test_1;
-_iq test_2;
 _iq test_3;
-_iq test_4;
 _iq spd;
 
 /*
@@ -26,12 +24,6 @@ void qep_setup(void)
 {
 	watchdog_timer_reset();
 
-	EALLOW;
-	//GpioCtrlRegs.GPAMUX2.all=0x0000;
-	//GpioCtrlRegs.GPAMUX2.bit.GPIO23=1;//eQEP index
-	//GpioCtrlRegs.GPAMUX2.bit.GPIO21=1;//eQEP 1B
-	//GpioCtrlRegs.GPAMUX2.bit.GPIO20=1;//eQEP qA
-	EDIS;
 
 	EQep1Regs.QUPRD=1500000;			// Unit Timer for 100Hz at 150 MHz SYSCLKOUT => Definira vremenski interval T (Svakih 10 ms se broji broj impulsa) s kojim ce se uzorkovati eQEP pozicija i opcionalno generirati prekid
 
@@ -54,7 +46,7 @@ void qep_setup(void)
 /*
  * Funkcija qep loop.
  */
-void qep_loop(void)
+void qep_read(void)
 {
 	watchdog_timer_reset();
 

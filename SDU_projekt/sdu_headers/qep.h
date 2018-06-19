@@ -9,9 +9,11 @@
 #define SDU_HEADERS_QEP_H_
 
 // deklaracija globalnih varijabli
+#include "../IQmathLib.h"
+extern _iq spd;
 
 // deklaracija globalnih funkcija
 void qep_setup(void);
-void qep_loop(void);
+void qep_read(void);
 
 #endif /* SDU_HEADERS_QEP_H_ */
