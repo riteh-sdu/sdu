@@ -39,7 +39,6 @@ int main(void)
 		watchdog_timer_reset();
 		test_prog_1_loop();
 
-		pwm_loop();
 		qep_loop();
 
 		pr1_loop();

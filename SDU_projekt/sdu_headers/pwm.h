@@ -9,10 +9,8 @@
 #define SDU_HEADERS_PWM_H_
 
 // deklaracija globalnih varijabli
-extern int pwm_z;
 
 // deklaracija globalnih funkcija
 void pwm_setup(void);
-void pwm_loop(void);
 
 #endif /* SDU_HEADERS_PWM_H_ */
