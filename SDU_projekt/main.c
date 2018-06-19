@@ -40,7 +40,6 @@ int main(void)
 		test_prog_1_loop();
 
 		pwm_loop();
-		adc_loop();
 		qep_loop();
 
 		pr1_loop();

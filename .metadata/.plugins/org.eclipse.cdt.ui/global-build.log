@@ -2,10 +2,11 @@
 **** Build of configuration Debug for project SDU_projekt ****
 
 "C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
-'Building file: ../sdu_source/init.c'
+'Building file: ../main.c'
 'Invoking: C2000 Compiler'
-"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --include_path="C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include" --include_path="C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include" -g --display_error_number --diag_warning=225 --diag_wrap=off --preproc_with_compile --preproc_dependency="sdu_source/init.d" --obj_directory="sdu_source"  "../sdu_source/init.c"
-'Finished building: ../sdu_source/init.c'
+"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --include_path="C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --include_path="C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_common/include" --include_path="C:/ti/controlSUITE/device_support/f2833x/v141/DSP2833x_headers/include" -g --display_error_number --diag_warning=225 --diag_wrap=off --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
+"../main.c", line 53: warning #112-D: statement is unreachable
+'Finished building: ../main.c'
 ' '
 'Building target: SDU_projekt.out'
 'Invoking: C2000 Linker'
@@ -17,6 +18,13 @@ warning #16002-D: build attribute vendor section TI missing in "../IQmath_fpu32.
 warning #16002-D: build attribute vendor section TI missing in "../IQmath_fpu32.lib<IQmathTables.obj>": compatibility cannot be determined
 'Finished building target: SDU_projekt.out'
 ' '
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SDU_projekt ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+gmake: Nothing to be done for 'all'.
 
 **** Build Finished ****
 

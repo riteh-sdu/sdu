@@ -78,11 +78,6 @@ void adc_setup(void)
 void adc_loop(void)
 {
 	watchdog_timer_reset();
-
-    Ifb_Ret = AdcMirror.ADCRESULT0;
-    Ifb_U = AdcMirror.ADCRESULT1;
-    Ifb_V = AdcMirror.ADCRESULT3;
-    Vfb_Bus = AdcMirror.ADCRESULT4;
 }
 
 /*
@@ -167,6 +162,11 @@ void interrupt_setup_adc_2(void)
  */
 interrupt void int_rut(void)
 {
+    Ifb_Ret = AdcMirror.ADCRESULT0;
+    Ifb_U = AdcMirror.ADCRESULT1;
+    Ifb_V = AdcMirror.ADCRESULT3;
+    Vfb_Bus = AdcMirror.ADCRESULT4;
+
 	pr1_interrupt();						// Regulacija brzine vrtnje.
 	pr2_interrupt();						// Zaštita.
 
