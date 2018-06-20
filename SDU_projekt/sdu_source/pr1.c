@@ -58,15 +58,15 @@ void pr1_interrupt(void)
 	//PI regulator
 	sum = sum+_IQmpy(dw,_IQ(0.0001));                                                                     //spremati ga kao globalna variabla------------------------------
 
-	if (sum>1)
+	if (sum>_IQ(10))
 	{                            			//anti windup limitira vrijednost integrala
-		sum=1;
+		sum=_IQ(10);
 	}
-	else if(sum<-1)
+	else if(sum<_IQ(-10))
 	{
-		sum=-1;
+		sum=_IQ(-10);
 	}
-	wpid =_IQmpy(_IQ(2),ws)+_IQmpy(_IQ(2),dw)+_IQmpy(_IQ(20),sum); 	//izlaz PI regulatora u rad/s
+	wpid =_IQmpy(_IQ(2),ws)+_IQmpy(_IQ(2),dw)+_IQmpy(_IQ(10),sum); 	//izlaz PI regulatora u rad/s
 	if (wpid>_IQ(376))
 	{
 		   wpid=_IQ(376);
