@@ -23,6 +23,7 @@ unsigned long Ifb_U_offset = 0;
 unsigned long Ifb_V_offset = 0;
 unsigned long Vfb_Bus_offset = 0;
 
+
 /*
  * Funkcija za podešavanje adc registara.
  */
@@ -65,11 +66,12 @@ void adc_setup(void)
     AdcRegs.ADCTRL3.bit.ADCCLKPS = 0b110;       // (110 = 6) FCLK = HSPCLK / (2*ADCCLKPS) -> 12.5MHz
     AdcRegs.ADCTRL3.bit.SMODE_SEL = 0b1;        // Sequential sampling mode
 
-    AdcRegs.ADCMAXCONV.bit.MAX_CONV1 = 0b0010;  // (0010 = 3) Number of conversions
+    AdcRegs.ADCMAXCONV.bit.MAX_CONV1 = 0b0011;  // (0010 = 3) Number of conversions
     AdcRegs.ADCREFSEL.bit.REF_SEL = 0b00;       // Internal reference (default)
-    AdcRegs.ADCCHSELSEQ1.bit.CONV00 = 0b0100;   // ADC-A4 Ifb-Ret, ADC-B4 Ifb-U
+    AdcRegs.ADCCHSELSEQ1.bit.CONV00 = 0b0100;   // ADC-A4 Ifb-Ret
     AdcRegs.ADCCHSELSEQ1.bit.CONV01 = 0b1110;   // ADC-B6 Ifb-V
     AdcRegs.ADCCHSELSEQ1.bit.CONV02 = 0b0001; 	// ADC-A1 Vfb-Bus
+    AdcRegs.ADCCHSELSEQ1.bit.CONV03 = 0b1100;	// ADC-B4 Ifb-U
 	EDIS;
 }
 
@@ -168,6 +170,7 @@ interrupt void int_rut(void)
     Ifb_V = AdcMirror.ADCRESULT3;
     Vfb_Bus = AdcMirror.ADCRESULT4;
 
+
     qep_read();
 
 	pr1_interrupt();						// Regulacija brzine vrtnje.
@@ -194,7 +197,7 @@ void fun_offset_adc(void)
         Ifb_U_offset = AdcMirror.ADCRESULT1 + Ifb_U_offset;
         Ifb_V_offset = AdcMirror.ADCRESULT3 + Ifb_V_offset;
         Vfb_Bus_offset = AdcMirror.ADCRESULT4 + Vfb_Bus_offset;
-        //DELAY_US(100);
+        delay_loop(1000);
     }
 
     // Izracun offset vrijednosti
