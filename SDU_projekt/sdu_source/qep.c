@@ -16,6 +16,7 @@ _iq rpm_low;
 _iq test_1;
 _iq test_3;
 _iq spd;
+long test_2;
 
 /*
  * Funkcija za podešavanje qep-a.
@@ -50,12 +51,21 @@ void qep_read(void)
 {
 	watchdog_timer_reset();
 
-	test_1 =  _IQmpy(_IQ(EQep1Regs.QPOSLAT), _IQ(0.00012));
+	if(EQep1Regs.QEPSTS.bit.QDF)
+		{
+		test_2=EQep1Regs.QPOSLAT;
+		}
+	else
+		{
+		test_2=4294967295-EQep1Regs.QPOSLAT;
+		}
+
+	test_1 =  _IQmpy(_IQ(test_2), _IQ(0.00012207));
 	rpm_high =	_IQmpy((test_1), _IQ(6000)); //6000 PREDSTAVLJA PREBACIVANJE IZ 10MS U S (*100) I U MINUTE (*60)
 
 	test_3=	_IQmpy(_IQ(0.00021844), _IQ(EQep1Regs.QCPRD));
 	rpm_low=_IQdiv(_IQ(60), test_3); //rotations per minute for low speed
-	if (rpm_high<_IQ(100) && rpm_high>_IQ(40))
+	/*if (rpm_high<_IQ(100) && rpm_high>_IQ(40))
 	{
 		spd=rpm_low;
 	}
@@ -67,5 +77,12 @@ void qep_read(void)
 	{
 		spd=rpm_high;
 	}
+*/
+	spd=rpm_high;
+	if(EQep1Regs.QEPSTS.bit.QDF)
+	{
+	spd=-spd;
+	}
+
 }
 
